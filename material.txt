@@ -1,0 +1,74 @@
+export const asyncHandler =
+  (fn) =>
+  async (...args) => {
+    try {
+      await fn(...args);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+export const handleApiCall = async (apiCall) => {
+  try {
+    const response = await apiCall();
+    return { data: response.data, error: null };
+  } catch (error) {
+    console.error(error);
+    return { data: null, error };
+  }
+};
+
+//!  export const fetchArticles = () => handleApiCall(() => api.get("/api/v1/articles/all"));write in api calls file articles.js
+// Add more API calls in a similar way
+// export const fetchAnotherData = () => handleApiCall(() => api.get("/api/v1/another-endpoint"));
+
+export const handleApiCall2 = (apiCallFunction) => {
+  return async () => {
+    return await apiCallFunction();
+  };
+};
+
+export const handleApiCall1 = async (apiCallFunction) => {
+  return () => {
+    console.log("hello from handle call 1");
+    apiCallFunction();
+  };
+};
+
+//   export const fetchArticles = () => handleApiCall(() => api.get("/api/v1/articles/all"));
+
+//   export const fetchArticleById = (articleId) =>
+// handleApiCall(api.get, `/api/v1/articles/${articleId}`);
+
+// const handleApiCall = (apiCallPromise) => {
+//     return apiCallPromise
+//       .then((response) => ({ data: response.data, error: null }))
+//       .catch((error) => {
+//         console.error(error);
+//         return { data: null, error };
+//       });
+//   };
+
+//   export const fetchArticles = () => handleApiCall(api.get("/api/v1/articles/all"));
+// export const myFetchArticles = async () => {
+//   return asyncHandler(async () => {
+//     const response = await api.get("/api/v1/articles/all");
+//     return response;
+//   });
+// };
+
+//   export const fetchArticleById = (articleId) =>
+//     handleApiCall(api.get(`/api/v1/articles/${articleId}`));
+
+export const myHandlerForAPI = async (
+  apiFunction,
+  errorMessage = "An error occurred while making the API call"
+) => {
+  try {
+    const response = await apiFunction();
+    return response.data;
+  } catch (error) {
+    console.error(`${errorMessage}: ${error.message}`);
+    return null;
+  }
+};

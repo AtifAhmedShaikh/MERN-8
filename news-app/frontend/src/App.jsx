@@ -1,38 +1,49 @@
 import React from "react";
-import "./App.css";
+import useAutoLogin from "./hooks/useAutoLogin.js";
+import ToastWrapper from "./components/UI/Toast.jsx";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
-import Posts from "./Pages/Posts";
-import Articles from "./Pages/Articles";
-import Notifications from "./Pages/Notifications";
-import ChannelsList from "./Pages/ChannelsList";
-import Settings from "./Pages/Settings";
-import LoginUser from "./Pages/auth/Login";
-import SignUpUser from "./Pages/auth/SignUp";
-import LoginChannel from "./Pages/channel-auth/Login";
-import RegisterChannel from "./Pages/channel-auth/Register";
-import ChannelProfile from "./Pages/ChannelProfile";
-import CompleteArticle from "./Pages/CompleteArticle";
-import SavedArticles from "./Pages/SavedArticles";
+import {
+  Home,
+  Notifications,
+  Settings,
+  UserLogin,
+  UserSignUp,
+} from "./z-point/Point.jsx";
+import {
+  ArticlesList,
+  CompleteArticle,
+  SavedArticles,
+} from "./z-point/Point.jsx";
+import {
+  ChannelLogin,
+  ChannelProfile,
+  ChannelRegister,
+  ChannelsList,
+} from "./z-point/Point.jsx";
 
 function App() {
+  useAutoLogin();
   return (
     <React.Fragment>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/articles" element={<Articles />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/channels/all" element={<ChannelsList />} />
-        <Route path="/channels/:id" element={<ChannelProfile />} />
-        <Route path="/articles/:id" element={<CompleteArticle />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/saved" element={<SavedArticles/>} />
-        <Route path="/auth/login" element={<LoginUser />} />
-        <Route path="/auth/signUp" element={<SignUpUser />} />
-        <Route path="/channels/auth/login" element={<LoginChannel />} />
-        <Route path="/channels/auth/register" element={<RegisterChannel />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/articles" element={<ArticlesList />} />
+        <Route exact path="/notifications" element={<Notifications />} />
+        <Route exact path="/channels" element={<ChannelsList />} />
+        <Route exact path="/channels/:id" element={<ChannelProfile />} />
+        <Route exact path="/articles/:id" element={<CompleteArticle />} />
+        <Route exact path="/settings" element={<Settings />} />
+        <Route exact path="/saved" element={<SavedArticles />} />
+        <Route exact path="/auth/login" element={<UserLogin />} />
+        <Route exact path="/auth/signUp" element={<UserSignUp />} />
+        <Route exact path="/channels/auth/login" element={<ChannelLogin />} />
+        <Route
+          exact
+          path="/channels/auth/register"
+          element={<ChannelRegister />}
+        />
       </Routes>
+      <ToastWrapper />
     </React.Fragment>
   );
 }

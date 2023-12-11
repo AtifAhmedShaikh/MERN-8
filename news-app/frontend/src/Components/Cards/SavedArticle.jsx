@@ -1,5 +1,5 @@
-import { FaBookmark,FaShareAlt  } from "react-icons/fa";
-
+import { IoMdShare } from "react-icons/io";
+import { FaRegBookmark } from "react-icons/fa6";
 const SavedArticle = () => {
   return (
     <div className="card flex w-[100%] relative gap-2 py-2 border-b">
@@ -14,17 +14,16 @@ const SavedArticle = () => {
           pariatur voluptas.
         </p>
         <div>
-
-        <span className="text-[13px]">Bol News</span>
-        <span className="ml-4 text-[13px]">2 day ago</span>
+          <span className="text-[13px]">Bol News</span>
+          <span className="ml-4 text-[13px]">2 day ago</span>
         </div>
       </div>
       <div>
-        <button  className="hover:scale-90">
-          <FaBookmark />
+        <button className="hover:scale-90">
+          <FaRegBookmark />
         </button>
         <button className="mt-3 hover:scale-90">
-        <FaShareAlt />
+          <IoMdShare />
         </button>
       </div>
     </div>
