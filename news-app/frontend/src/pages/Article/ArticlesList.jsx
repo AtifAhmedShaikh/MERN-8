@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../layouts/Container";
 import BottomBar from "../../layouts/BottomBar";
 import ArticleCard from "../../components/Cards/ArticleCard";
@@ -6,10 +6,19 @@ import FiltersBar from "../../components/Navbar/FiltersBar";
 import SearchBar from "../../components/Navbar/SearchBar";
 import BackBar from "../../components/Navbar/BackBar";
 import Loader from "../../components/UI/Loader";
-import useFetchArticles from "../../hooks/useFetchArticles";
+import { fetchArticles } from "../../api/articles";
 
 const Articles = () => {
-  const [articles, loading] = useFetchArticles();
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      const response = await fetchArticles();
+      if (!response) return;
+      setArticles(response.data.articles);
+      setLoading(false);
+    })();
+  }, []);
   return (
     <React.Fragment>
       <BackBar pageLabel={"Articles"} />

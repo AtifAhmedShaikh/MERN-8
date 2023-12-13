@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { findChannelArticles } from "../services/article.service.js";
 import {
     findChannelById,
     findChannels,
@@ -6,23 +7,30 @@ import {
     isChannelFollowedByUser,
     unfollowTheChannelByUser
 } from "../services/channel.service.js";
-import {asyncHandler} from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const allChannels = asyncHandler(async (req, res, next) => {
     const channels = await findChannels();
-    res.status(200).json({channels});
+    res.status(200).json({ channels });
 });
 
 export const channelById = asyncHandler(async (req, res, next) => {
-    const {id} = req.params;
+    const { id } = req.params;
     const channel = await findChannelById(id);
-    res.status(200).json({channel});
+    res.status(200).json({ channel });
+});
+
+export const channelProfileById = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const channel = await findChannelById(id);
+    const articles = await findChannelArticles();
+    res.status(200).json({ profile: { channel, articles } });
 });
 
 //user has follow and unfollow the channel by the its IDs
 export const followToChannel = asyncHandler(async (req, res, next) => {
-    const {id: channelId} = req.params;
-    const {_id: userId} = req.user;
+    const { id: channelId } = req.params;
+    const { _id: userId } = req.user;
     //If already follow this channel,so unfollow this channel
     const hasFollowed = await isChannelFollowedByUser(channelId, userId);
     if (hasFollowed) {

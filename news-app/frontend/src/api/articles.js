@@ -3,18 +3,14 @@ import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchArticles = async () => {
   const response = await asyncHandler(async () => {
-    const res = await api.get("/api/v1/articles/all");
-    return res;
+    return await api.get("/api/v1/articles/all");
   });
-  if (response) return response.data;
-  return null;
+  return response;
 };
 
 export const fetchArticleById = async (articleId) => {
   const response = await asyncHandler(async () => {
-    const res = await api.get(`/api/v1/articles/one/${articleId}`);
-    return res;
+    return await api.get(`/api/v1/articles/one/${articleId}`);
   });
-  if (response) return response.data;
-  return null;
+  return response;
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import useAutoLogin from "./hooks/useAutoLogin.js";
 import ToastWrapper from "./components/UI/Toast.jsx";
 import { Route, Routes } from "react-router-dom";
 import {
@@ -20,6 +19,7 @@ import {
   ChannelRegister,
   ChannelsList,
 } from "./z-point/Point.jsx";
+import useAutoLogin from "./hooks/useAutoLogin.js";
 
 function App() {
   useAutoLogin();

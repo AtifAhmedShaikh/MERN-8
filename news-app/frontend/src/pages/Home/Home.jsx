@@ -20,7 +20,7 @@ const Home = () => {
       <div className="my-[7vh] px-5">
         <h2 className="text-lg font-bold px-4 mb-5">Popular Channels</h2>
         <Container className="filters w-[100%] overflow-x-scroll overflow-y-hidden flex justify-center py-2 px-5 flex-wrap gap-5">
-          {channelsList.slice(0, 5).map((channel) => {
+          {channelsList.map((channel) => {
             return <ChannelCard key={channel._id} {...channel} />;
           })}
         </Container>
@@ -38,7 +38,7 @@ const Home = () => {
           Latest Articles
         </h2>
         <div className="filters w-[100%] overflow-x-scroll overflow-y-hidden flex justify-center py-2 px-5 flex-wrap gap-5">
-          {articles.slice(0, 5).map((article) => {
+          {articles?.map((article) => {
             return <ArticleCard key={article._id} {...article} />;
           })}
         </div>

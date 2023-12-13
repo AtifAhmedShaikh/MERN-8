@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/slices/auth.slice.js";
 import { loginUser } from "../../api/auth.js";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // handle controlled components (Inputs) to associated with data state
+  // handle controlled components (Inputs) to associated with formData state
   const handleInputs = (e) => {
     const key = e.target.name;
     const value = e.target.value;
@@ -53,7 +54,7 @@ const Login = () => {
             autoComplete="off"
           >
             <FormInput
-              label={"Use Name"}
+              label={"Email"}
               name={"email"}
               placeholder={"Enter your Email "}
               type={"text"}
@@ -71,24 +72,15 @@ const Login = () => {
               required
             />
             <div>
-              {loading ? (
-                <Button
-                  type="button"
-                  disabled
-                  className={
-                    "bg-gray-100 border-[1.5px] border-green-600 hover:bg-green-400 text-green-600 disabled:cursor-default"
-                  }
-                >
-                  Loading
-                </Button>
-              ) : (
-                <Button
-                  type="submit"
-                  className={"bg-green-600 hover:bg-green-400 text-gray-100 "}
-                >
-                  Login
-                </Button>
-              )}
+              <Button
+                type="submit"
+                className={
+                  "bg-green-600 hover:bg-green-600 text-gray-100 disabled:bg-green-200 disabled:cursor-default disabled::text-gray-400"
+                }
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Login"}
+              </Button>
             </div>
           </form>
           <div className="w-full flex flex-col items-start">

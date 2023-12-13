@@ -6,10 +6,10 @@ const useFetchArticles = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const data = await fetchArticles();
-      console.log(data);
-      if (!data) return;
-      setArticles(data.articles);
+      const response = await fetchArticles();
+      console.log(response);
+      if (!response) return;
+      setArticles(response.data.articles);
       setLoading(false);
     })();
   }, []);

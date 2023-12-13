@@ -3,18 +3,21 @@ import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchChannelsList = async () => {
   const response = await asyncHandler(async () => {
-    const res = await api.get("/api/v1/channels/all");
-    return res;
+    return await api.get("/api/v1/channels/all");
   });
-  if (response) return response.data;
-  return null;
+  return response;
+};
+
+export const fetchChannelProfile = async (channelId) => {
+  const response = await asyncHandler(async () => {
+    return await api.get(`api/v1/channels/profiles/${channelId}`);
+  });
+  return response;
 };
 
 export const followToChannel = async (channelId) => {
-  try {
-    const response = await api.post(`/api/v1/channels/follow/${channelId}`);
-    return { data: response.data, error: null };
-  } catch (error) {
-    return { data: null, error };
-  }
+  const response = await asyncHandler(async () => {
+    return await api.patch(`/api/v1/channels/follow/${channelId}`);
+  });
+  return response;
 };

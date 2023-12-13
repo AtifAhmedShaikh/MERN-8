@@ -22,23 +22,24 @@ export const deleteArticleById = async id => {
     return await ArticleModel.findByIdAndDelete(id);
 };
 
-
-
-export const likeTheArticleByUser=async(articleId,userId)=>{
-    const article=await findArticleById(articleId);
-    article.likes=[...article.likes,userId];
+export const likeTheArticleByUser = async (articleId, userId) => {
+    const article = await findArticleById(articleId);
+    article.likes = [...article.likes, userId];
     return await article.save();
-}
+};
 
-export const disLikeTheArticleByUser=async(articleId,userId)=>{
-    const article=await findArticleById(articleId);
-    article.likes=[...article.likes].filter(like=>like!=userId);
+export const disLikeTheArticleByUser = async (articleId, userId) => {
+    const article = await findArticleById(articleId);
+    article.likes = [...article.likes].filter(like => like != userId);
     return await article.save();
-}
+};
 
+export const findChannelArticles = async channelId => {
+    return await ArticleModel.find({ author: channelId });
+};
 
-export const isLikedArticleByUser=async(articleId,userId)=>{
-    const article=await findArticleById(articleId);
-    const isLiked=article.likes.includes(userId);
+export const isLikedArticleByUser = async (articleId, userId) => {
+    const article = await findArticleById(articleId);
+    const isLiked = article.likes.includes(userId);
     return isLiked;
-}
+};

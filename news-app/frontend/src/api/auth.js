@@ -3,27 +3,21 @@ import { asyncHandler } from "../utils/asyncHandler";
 
 export const registerUser = async (userData) => {
   const response = await asyncHandler(async () => {
-    const res = await api.post("/api/v1/auth/register", { userData });
-    return res;
+    return await api.post("/api/v1/auth/register", { userData });
   });
-  if (response) return response.data;
-  return null;
+  return response;
 };
 
 export const loginUser = async (userData) => {
   const response = await asyncHandler(async () => {
-    const res = await api.post("/api/v1/auth/login", userData);
-    return res;
+    return await api.post("/api/v1/auth/login", userData);
   });
-  if (response) return response.data;
-  return null;
+  return response;
 };
 
 export const refreshAutoLogin = async () => {
   const response = await asyncHandler(async () => {
-    const res = await api.post("/api/v1/auth/refresh");
-    return res;
+    return await api.post("/api/v1/auth/refresh");
   });
-  if (response) return response.data;
-  return null;
+  return response;
 };

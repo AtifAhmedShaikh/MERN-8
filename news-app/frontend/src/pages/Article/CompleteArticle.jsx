@@ -3,7 +3,7 @@ import BackBar from "../../components/Navbar/BackBar";
 import Container from "../../layouts/Container";
 import { fetchArticleById } from "../../api/articles.js";
 import { useParams } from "react-router-dom";
-
+import { timeAgo } from "../../utils/timeStamp.js";
 const CompleteArticle = () => {
   const [article, setArticle] = useState({});
   const { id } = useParams();
@@ -35,7 +35,7 @@ const CompleteArticle = () => {
             />
             <span>{article?.author?.channelName}</span>
           </div>
-          <span>{createdAt}</span>
+          <span>{timeAgo(createdAt)}</span>
         </div>
         <div className="mt-4">
           <h2 className="font-bold text-lg">Content</h2>
