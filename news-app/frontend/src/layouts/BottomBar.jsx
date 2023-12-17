@@ -1,31 +1,42 @@
 import React from "react";
-import Button from "../components/UI/Button";
 import { IoMdHome, IoIosSettings, IoMdNotifications } from "react-icons/io";
 import { FaRegBookmark, FaNewspaper, FaUsers } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { FaPencilAlt } from "react-icons/fa";
 
 const BottomBar = () => {
-  const navigate = useNavigate();
   const navIcons = [
-    { path: "/", element: <IoMdHome /> },
-    { path: "/articles", element: <FaNewspaper /> },
-    { path: "/notifications", element: <IoMdNotifications /> },
-    { path: "/channels", element: <FaUsers /> },
-    { path: "/saved", element: <FaRegBookmark /> },
-    { path: "/settings", element: <IoIosSettings /> },
+    { path: "/", label: "Home", element: <IoMdHome /> },
+    { path: "/articles", label: "Articles", element: <FaNewspaper /> },
+    {
+      path: "/notifications",
+      label: "Notifications",
+      element: <IoMdNotifications />,
+    },
+    { path: "/channels", label: "Channels", element: <FaUsers /> },
+    { path: "/saved", label: "Collections", element: <FaRegBookmark /> },
+    { path: "/articles/create", label: "Write", element: <FaPencilAlt /> },
+    { path: "/settings", label: "Settings", element: <IoIosSettings /> },
   ];
   return (
     <React.Fragment>
-      <div className="fixed bottom-0 left-0 w-full h-9 flex justify-between items-center text-gray-100 text-lg px-5 bg-gray-800 z-20">
+      <div className="fixed bottom-0 left-0 w-full h-14 flex justify-between items-end text-gray-100 text-lg px-5 bg-gray-800 z-20">
         {navIcons.map((icon) => {
           return (
-            <Button
-              onClick={() => navigate(icon.path)}
-              className={"bg-transparent hover:scale-110 hover:text-green-500"}
+            <NavLink
+              to={icon.path}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "text-orange-500 flex flex-col items-center"
+                  : isActive
+                  ? "text-green-500 flex flex-col items-center "
+                  : " flex flex-col items-center"
+              }
               key={icon.path}
             >
-              {icon.element}
-            </Button>
+              <span className="text-center">{icon.element}</span>
+              <span className="text-center text-[11px]">{icon.label}</span>
+            </NavLink>
           );
         })}
       </div>

@@ -7,14 +7,13 @@ const useAutoLogin = () => {
   const [success, setSuccess] = useState(false);
   useEffect(() => {
     (async () => {
-      const data = await refreshAutoLogin();
-      if (!data) {
+      const response = await refreshAutoLogin();
+      if (!response) {
         setSuccess(false);
         return;
       }
-      dispatch(login(data.user));
+      dispatch(login(response.data.user));
       setSuccess(true);
-      console.log(data);
     })();
   }, [dispatch]);
   return success;

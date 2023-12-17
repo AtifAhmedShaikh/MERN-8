@@ -9,14 +9,14 @@ const FormInput = (props) => {
   };
   return (
     <React.Fragment>
-      <div>
+      <div className="mb-5">
         <label
           htmlFor="email"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
           {props.label}
         </label>
-        <div className="mt-2 relative">
+        <div className="relative">
           <input
             autoComplete="off"
             required

@@ -36,9 +36,6 @@ const Navbar = () => {
               Logout
             </button>
           )}
-          <button className="bg-teal-600 px-2 py-1 rounded-md text-gray-100 hover:bg-teal-700">
-            Join as Channel
-          </button>
         </div>
       </div>
     </React.Fragment>

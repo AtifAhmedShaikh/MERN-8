@@ -24,12 +24,11 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const data = await loginUser(formData);
+    const response = await loginUser(formData);
     setLoading(false);
-    //If some Error occured in login user
-    if (!data) return;
-    //setup user data in redux store in auth slice
-    dispatch(login({ ...data.user }));
+    if (!response) return; //Error was already handled
+    //set user data in redux store on auth slice
+    dispatch(login({ ...response.data.user }));
     setLoading(false);
     navigate("/articles");
   };

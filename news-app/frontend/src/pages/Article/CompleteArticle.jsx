@@ -1,20 +1,66 @@
 import React, { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import BackBar from "../../components/Navbar/BackBar";
 import Container from "../../layouts/Container";
-import { fetchArticleById } from "../../api/articles.js";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { timeAgo } from "../../utils/timeStamp.js";
+import Button from "../../components/UI/Button.jsx";
+import ShareButtons from "../../components/Wrappers/ShareButtons.jsx";
+import BottomBar from "../../layouts/BottomBar.jsx";
+import {
+  deleteArticleById,
+  disLikeArticleById,
+  fetchArticleById,
+  likeArticleById,
+  addToCollection,
+} from "../../api/articles.js";
+
+import { toast } from "react-toastify";
+
 const CompleteArticle = () => {
+  const user = useSelector((state) => state.auth.user);
   const [article, setArticle] = useState({});
+  const [likeCount, setLikeCount] = useState(0);
+  const [isLiked, setLiked] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
+
   useEffect(() => {
     (async () => {
       const response = await fetchArticleById(id);
-      if (!response.data) return;
-      console.log(response.data.article);
-      setArticle(response.data.article);
+      if (!response) return;
+      setArticle({
+        ...response.data.article,
+        isCurrentChannelArticle: response?.data?.article?.author === user._id,
+      });
+      setLikeCount(response.data.article.likes.length);
+      setLiked(response.data.article.likes.includes(user._id));
     })();
-  }, [id]);
+  }, [user, id, user._id]);
+
+  const handleLike = async () => {
+    setLiked(true);
+    setLikeCount((prev) => prev + 1);
+    await likeArticleById(id);
+  };
+
+  const handleDisLike = async () => {
+    setLiked(false);
+    setLikeCount((prev) => prev - 1);
+    await disLikeArticleById(id);
+  };
+
+  const handleSave = async () => {
+    await addToCollection(id);
+  };
+  const handleDelete = async () => {
+    const response = await deleteArticleById(id);
+    if (!response) return;
+    toast(response?.data?.message);
+    console.log(response);
+  };
+
   const { title, description, content, urlToImage, createdAt } = article;
   return (
     <React.Fragment>
@@ -45,13 +91,44 @@ const CompleteArticle = () => {
           <h2 className="font-bold text-lg">Description</h2>
           <p>{description}</p>
         </div>
-        <button
+        <div className="my-5">
+          <span>Likes :{likeCount}</span>
+          {isLiked ? (
+            <FaHeart onClick={handleDisLike} />
+          ) : (
+            <FaRegHeart onClick={handleLike} />
+          )}
+        </div>
+        <Button
           type="button"
+          onClick={handleSave}
           className="focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-1 focus:ring-blue-500 font-medium rounded-[4px] text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Go Officail site
-        </button>
+          save for later
+        </Button>
+        {article.isCurrentChannelArticle && (
+          <>
+            <Button
+              type="button"
+              onClick={() => navigate(`/articles/update/${article._id}`)}
+              className="ml-3 focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-1 focus:ring-blue-500 font-medium rounded-[4px] text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Update Article{" "}
+            </Button>
+            <Button
+              type="button"
+              onClick={handleDelete}
+              className="ml-3 focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-1 focus:ring-blue-500 font-medium rounded-[4px] text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Delete Article{" "}
+            </Button>
+          </>
+        )}
+        <div className="mt-5">
+          <ShareButtons />
+        </div>
       </Container>
+      <BottomBar />
     </React.Fragment>
   );
 };

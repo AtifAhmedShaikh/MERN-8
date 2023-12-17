@@ -4,7 +4,7 @@ import ChannelLogin from "../pages/Login/ChannelLogin";
 import Notifications from "../pages/Notification/Notifications";
 import ArticlesList from "../pages/Article/ArticlesList";
 import CompleteArticle from "../pages/Article/CompleteArticle";
-import SavedArticles from "../pages/Article/SavedArticles";
+import Collection from "../pages/Collection/Collection";
 import ChannelsList from "../pages/Channel/ChannelsList";
 import ChannelProfile from "../pages/Channel/ChannelProfile";
 import UserSignUp from "../pages/Register/UserSignUp";
@@ -20,7 +20,7 @@ export {
   ChannelProfile,
   ChannelsList,
   Notifications,
-  SavedArticles,
+  Collection,
   Settings,
   CompleteArticle,
   ArticlesList,

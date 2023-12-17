@@ -35,13 +35,10 @@ export const login = asyncHandler(async (req, res, next) => {
     res.status(200).json({ user });
 });
 
-//controller of refresh route, whenever page has refresh its automatic login
+//controller of refresh route, whenever page has refresh so user is automatic login
 export const refresh = asyncHandler(async (req, res) => {
-    const token =
-        req.cookies.token ||
-        assignTokenToUser({ _id: "6570aca8946b3454bfb0d1d0" });
+    const token = req.cookies.token;
     if (!token) {
-        res.cookie("token", token, cookieConfig);
         return res.status(401).json({ message: "your not authenticated" });
     }
     const verifyUser = verifyToken(token);

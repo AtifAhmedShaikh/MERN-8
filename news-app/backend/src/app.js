@@ -17,7 +17,7 @@ const app = express();
 const corConfig = {
     origin: [appPath],
     credentials: true,
-    methods: "GET,POST,PUT,PATCH,HEAD"
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
 };
 
 app.use(cors(corConfig));

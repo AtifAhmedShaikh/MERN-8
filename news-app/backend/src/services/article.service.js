@@ -1,4 +1,5 @@
 import ArticleModel from "../models/Article.model.js";
+import SavedArticleModel from "../models/SavedArticle.js";
 
 export const findArticles = async () => {
     return await ArticleModel.find().populate("author");
@@ -38,8 +39,20 @@ export const findChannelArticles = async channelId => {
     return await ArticleModel.find({ author: channelId });
 };
 
-export const isLikedArticleByUser = async (articleId, userId) => {
+export const isArticleLikedByUser = async (articleId, userId) => {
     const article = await findArticleById(articleId);
-    const isLiked = article.likes.includes(userId);
-    return isLiked;
+    return article.likes.includes(userId);
+};
+
+export const saveArticleById = async (articleId, userId) => {
+    const article = new SavedArticleModel({
+        articleId,
+        userId
+    });
+    return await article.save();
+};
+export const findUserSavedArticles = async userId => {
+    return await SavedArticleModel.find({ userId }).populate(
+        "articleId userId"
+    );
 };

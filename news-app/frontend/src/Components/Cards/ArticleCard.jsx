@@ -1,6 +1,7 @@
-import Button from "../../components/UI/Button";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/UI/Button";
+import {timeAgo}from "../../utils/timeStamp"
 const ArticleCard = ({
   _id,
   title,
@@ -21,7 +22,7 @@ const ArticleCard = ({
           />
           <span className="text-sm">{username}</span>
         </div>
-        <span className="text-xs">{createdAt}</span>
+        <span className="text-xs">{timeAgo(createdAt)}</span>
       </div>
       <p className="font-bold text-md mb-3">{title}</p>
       <div className="flex justify-center">
