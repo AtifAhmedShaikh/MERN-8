@@ -21,3 +21,11 @@ export const refreshAutoLogin = async () => {
   });
   return response;
 };
+
+
+export const logoutUser=async()=>{
+  const response=await asyncHandler(async()=>{
+    return await api.post("/api/v1/auth/logout");
+  });
+  return response;
+}

@@ -35,6 +35,7 @@ export const login = asyncHandler(async (req, res, next) => {
     res.status(200).json({ user });
 });
 
+
 //controller of refresh route, whenever page has refresh so user is automatic login
 export const refresh = asyncHandler(async (req, res) => {
     const token = req.cookies.token;
@@ -52,3 +53,17 @@ export const refresh = asyncHandler(async (req, res) => {
     const user = await findUserById(verifyUser._id);
     res.status(200).json({ user });
 });
+
+export const logout=asyncHandler((req,res)=>{
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ message: "your not authenticated" });
+    }
+    const verifyUser = verifyToken(token);
+    if (!verifyUser) {
+        return res.status(401).json({ message: "your not authenticated" });
+    }
+    res.clearCookie("token");//clear cookies
+    res.status(200).json({message:"your successfully logout !"});
+});
+

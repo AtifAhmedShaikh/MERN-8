@@ -3,7 +3,6 @@ import { IoMdHome, IoIosSettings, IoMdNotifications } from "react-icons/io";
 import { FaRegBookmark, FaNewspaper, FaUsers } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
-
 const BottomBar = () => {
   const navIcons = [
     { path: "/", label: "Home", element: <IoMdHome /> },

@@ -3,6 +3,9 @@ export const authReducer = {
     state.user = action.payload;
     state.status = true;
   },
-  logout: () => {},
+  logout: (state) => {
+    state.user = {};
+    state.status = false;
+  },
   refresh: () => {},
 };
