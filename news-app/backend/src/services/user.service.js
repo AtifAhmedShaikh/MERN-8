@@ -11,7 +11,13 @@ export const findUserById = async userId => {
 //register new user in database
 export const createNewUser = async userData => {
     const hashed = await hashedPassword(userData.password);
-    const newUser = new UserModel({ ...userData, password: hashed });
+    const newUser = new UserModel({ ...userData, password: hashed,role:"USER" });
+    return await newUser.save();
+};
+//register new channel account and Esure admin accept his request for account creating 
+export const createNewChannel = async channelData => {
+    const hashed = await hashedPassword(channelData.password);
+    const newUser = new UserModel({ ...channelData, password: hashed,role:"NEWS_CHANNEL" });
     return await newUser.save();
 };
 export const findUserByEmail = async email => {
@@ -24,3 +30,5 @@ export const findUserByEmailAndPassword = async (email, password) => {
     if (!isMatchedPassword) return null;
     return user;
 };
+
+

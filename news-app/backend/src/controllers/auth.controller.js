@@ -3,12 +3,33 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { assignTokenToUser, verifyToken } from "../utils/tokens.js";
 import { cookieConfig } from "../config/cookieConfig.js";
 import {
+    createNewChannel,
     createNewUser,
     findUserByEmail,
     findUserByEmailAndPassword,
     findUserById
 } from "../services/user.service.js";
-
+//TODO: this list also store in databse 
+const requestList=[
+    {
+        name:"Atif ",
+        username:"ahmedshaikh",
+        email:"ahmedshaikh@gmail.com",
+        status:"ACCEPTED"
+    },
+    {
+        name:"Atif ",
+        username:"ahmedshaikh",
+        email:"ahmedshaikh@gmail.com",
+        status:"ACCEPTED"
+    },
+    {
+        name:"Atif ",
+        username:"ahmedshaikh",
+        email:"ahmedshaikh@gmail.com",
+        status:"ACCEPTED"
+    }
+]
 //register new user in database and also automatic login
 export const register = asyncHandler(async (req, res, next) => {
     const { userData } = req.body;
@@ -16,10 +37,17 @@ export const register = asyncHandler(async (req, res, next) => {
     if (isExist) {
         return res.status(400).json({ message: "Email has already exists " });
     }
-    const user = await createNewUser({ ...userData });
-    const token = assignTokenToUser({ _id: user._id, email: user.email });
+    //If user creating his user account
+    if(userData.role==="USER"){
+        const user = await createNewUser({ ...userData });
+        const token = assignTokenToUser({ _id: user._id, email: user.email });
+        res.cookie("token", token, cookieConfig);
+        res.status(200).json({ user });
+    }else if(userData.role==="NEWS_CHANNEL"){
+    const createdChannel=    await createNewChannel();
     res.cookie("token", token, cookieConfig);
     res.status(200).json({ user });
+    }
 });
 
 //controller for login, Get email and password from request body and find it
