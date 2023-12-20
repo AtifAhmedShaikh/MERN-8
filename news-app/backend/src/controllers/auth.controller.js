@@ -22,7 +22,7 @@ export const register = asyncHandler(async (req, res) => {
         count: 5,
         subject: "This is testing email"
     });
-    if(!sent){
+    if (!sent) {
         throw new CustomError(409, "your Email not exist in the world ");
     }
     const user = await createNewUser({ email, name, username, password });
