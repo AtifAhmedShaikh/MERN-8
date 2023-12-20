@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import BackBar from "../../components/Navbar/BackBar";
-import Container from "../../layouts/Container";
+import Container from "../../containers/Container";
 import Item from "../../components/Cards/CollectionItem";
-import BottomBar from "../../layouts/BottomBar";
+import BottomBar from "../../components/Navbar/BottomBar";
 import { useSelector } from "react-redux";
 import { fetchUserCollection } from "../../api/articles";
 import Loader from "../../components/UI/Loader";
@@ -25,6 +25,7 @@ const Collection = () => {
       <BackBar pageLabel={"saved articles"} />
       <Container className={"flex flex-col justify-start items-center"}>
         {loading && <Loader />}
+        {loading && collectionItems.length === 0 && <Loader />}
         <div className="lg:w-[45%] mt-5">
           {collectionItems?.map((item) => {
             return <Item key={item?._id} {...item} />;

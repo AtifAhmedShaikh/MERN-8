@@ -1,6 +1,5 @@
 import { FaSearch } from "react-icons/fa";
-
-const SearchBar = () => {
+const SearchWrapper = () => {
   return (
     <div className="flex justify-center w-full mt-5">
       <div className="relative lg:max-w-[75%] lg:min-w-[75%]">
@@ -14,10 +13,9 @@ const SearchBar = () => {
           placeholder="Type to search any thing..."
           required
         />
-        
       </div>
     </div>
   );
 };
 
-export default SearchBar;
+export default SearchWrapper;

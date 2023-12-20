@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { connectionString } from "../config/exportEnv.js";
+import { DATABASE_URI } from "../config/exportEnv.js";
 const connectDB = async () => {
     try {
-        const connect = await mongoose.connect(connectionString);
+        const connect = await mongoose.connect(DATABASE_URI);
         console.log(
             "Database connected successfully !",
             connect.connection.host

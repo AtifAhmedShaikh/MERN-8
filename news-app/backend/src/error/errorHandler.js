@@ -6,7 +6,7 @@ export const handleError = (err, req, res, next) => {
     if (MODE) {
         res.status(err.statusCode).json({
             success: false,
-            errMessage: err.message,
+            message: err.message,
             stack: err.stack,
             error: err
         });

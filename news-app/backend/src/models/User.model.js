@@ -20,12 +20,10 @@ const userSchema = new mongoose.Schema(
         },
         profileImage: {
             type: String,
-            required: true,
             default: "my-profile-Image-url"
         },
         backgroundImage: {
             type: String,
-            required: true,
             default: "my-background-Image-url"
         },
         role: {

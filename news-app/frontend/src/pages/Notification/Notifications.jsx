@@ -1,6 +1,6 @@
 import React from "react";
-import BottomBar from "../../layouts/BottomBar";
-import Container from "../../layouts/Container";
+import BottomBar from "../../components/Navbar/BottomBar";
+import Container from "../../containers/Container";
 import NotificationCard from "../../components/cards/NotificationCard";
 import BackBar from "../../components/Navbar/BackBar";
 const Notifications = () => {

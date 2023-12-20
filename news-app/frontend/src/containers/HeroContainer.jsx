@@ -20,10 +20,10 @@ const HeroContainer = () => {
             laudantium ipsum impedit dolorum!
           </p>
           <Button
-            className={
-              "text-gray-100 bg-orange-600 hover:bg-orange-400 w-fit mt-4"
-            }
             onClick={() => navigate("/articles")}
+            className="w-fit "
+            variant={"success"}
+            isLoading={false}
           >
             Explore
           </Button>

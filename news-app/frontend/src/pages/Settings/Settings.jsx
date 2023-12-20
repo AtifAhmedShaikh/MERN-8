@@ -1,7 +1,7 @@
 import React from "react";
 import BackBar from "../../components/Navbar/BackBar";
-import Container from "../../layouts/Container";
-import BottomBar from "../../layouts/BottomBar";
+import Container from "../../containers/Container";
+import BottomBar from "../../components/Navbar/BottomBar";
 import Button from "../../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 const Settings = () => {
@@ -42,14 +42,16 @@ const Settings = () => {
         </div>
         <div className="flex flex-col gap-3 mt-4 justify-start lg:w-[45%]">
           <Button
-            className={"bg-blue-500 hover:bg-blue-700 text-gray-100 lg:w-fit"}
             onClick={() => navigate("/channels/auth/login")}
+            variant={"success"}
+            isLoading={false}
           >
             Login Channel Account
           </Button>
           <Button
-            className={"bg-blue-500 hover:bg-blue-700 text-gray-100 lg:w-fit"}
             onClick={() => navigate("/channels/auth/register")}
+            variant={"success"}
+            isLoading={false}
           >
             Register New Channel
           </Button>

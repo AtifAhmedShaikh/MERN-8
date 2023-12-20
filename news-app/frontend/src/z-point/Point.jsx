@@ -1,22 +1,18 @@
 import Home from "../pages/Home/Home";
-import UserLogin from "../pages/Login/UserLogin";
-import ChannelLogin from "../pages/Login/ChannelLogin";
 import Notifications from "../pages/Notification/Notifications";
 import ArticlesList from "../pages/Article/ArticlesList";
 import CompleteArticle from "../pages/Article/CompleteArticle";
 import Collection from "../pages/Collection/Collection";
 import ChannelsList from "../pages/Channel/ChannelsList";
 import ChannelProfile from "../pages/Channel/ChannelProfile";
-import UserSignUp from "../pages/Register/UserSignUp";
-import ChannelRegister from "../pages/Register/ChannelRegister";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/Register/SignUp";
 import Settings from "../pages/Settings/Settings";
 //center points of all components and hooks aor other thing who use in App.jsx
 export {
   Home,
-  UserLogin,
-  UserSignUp,
-  ChannelLogin,
-  ChannelRegister,
+  Login,
+  SignUp,
   ChannelProfile,
   ChannelsList,
   Notifications,

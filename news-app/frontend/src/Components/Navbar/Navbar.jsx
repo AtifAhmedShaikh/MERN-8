@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../api/auth";
+import { logoutUser } from "../../api/auth";
 import { toast } from "react-toastify";
-import { logout } from "../store/slices/auth.slice";
+import { logout } from "../../store/slices/auth.slice";
+import Button from "../UI/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,26 +29,32 @@ const Navbar = () => {
         <div className="flex gap-3">
           {!authStatus ? (
             <div className="flex gap-1">
-              <button
-                className="bg-teal-600 px-2 py-1 rounded-md text-gray-100 hover:bg-teal-700"
+              <Button
+                className="w-fit "
+                variant={"success"}
+                isLoading={false}
                 onClick={() => navigate("/auth/signUp")}
               >
                 Sign Up
-              </button>
-              <button
-                className="bg-teal-600 px-2 py-1 rounded-md text-gray-100 hover:bg-teal-700"
+              </Button>
+              <Button
+                className="w-fit "
+                variant={"success"}
+                isLoading={false}
                 onClick={() => navigate("/auth/login")}
               >
                 Sign In
-              </button>
+              </Button>
             </div>
           ) : (
-            <button
-              className="bg-teal-600 px-2 py-1 rounded-md text-gray-100 hover:bg-teal-700"
+            <Button
+              className="w-fit "
+              variant={"success"}
+              isLoading={false}
               onClick={handleLogout}
             >
               Logout
-            </button>
+            </Button>
           )}
         </div>
       </div>

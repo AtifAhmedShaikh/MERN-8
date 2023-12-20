@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackBar from "../../components/Navbar/BackBar";
-import BottomBar from "../../layouts/BottomBar";
-import Container from "../../layouts/Container";
+import BottomBar from "../../components/Navbar/BottomBar";
+import Container from "../../containers/Container";
 import Button from "../../components/UI/Button";
 import FormInput from "../../components/UI/FormInput";
 import { createArticleByChannel } from "../../api/articles";
@@ -63,7 +63,8 @@ const CreateArticle = () => {
           <FormInput type={"file"} label={"Upload updated Image of article "} />
           <Button
             type="submit"
-            className={"bg-green-500 rounded-md text-gray-100 w-fit"}
+            variant={"primary"}
+            isLoading={false}
           >
             Publish Article
           </Button>

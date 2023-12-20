@@ -6,13 +6,12 @@ const CollectionItem = ({ articleId, userId }) => {
   const { title, urlToImage, createdAt } = articleId;
   const { username } = userId;
   const handleRemove = async () => {
-    const res = await removeToCollection(articleId._id);
-    console.log(res);
+    await removeToCollection(articleId._id);
   };
   return (
     <div className="card flex w-[100%] relative gap-2 py-2 border-b">
       <img
-        className="w-[20%] rounded-md"
+        className="w-[20%] rounded-md h-[5rem]"
         src={urlToImage}
         alt="article image"
       />

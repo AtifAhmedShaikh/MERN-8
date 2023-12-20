@@ -64,9 +64,7 @@ export const fetchUserCollection = async (userId) => {
 //add article into user collection
 export const addToCollection = async (articleId) => {
   const response = await asyncHandler(async () => {
-    return await api.post("/api/v1/articles/save/add", {
-      articleId,
-    });
+    return await api.post(`/api/v1/articles/save/add/${articleId}`);
   });
   return response;
 };
@@ -75,6 +73,23 @@ export const addToCollection = async (articleId) => {
 export const removeToCollection = async (articleId) => {
   const response = await asyncHandler(async () => {
     return await api.put(`/api/v1/articles/save/remove/${articleId}`);
+  });
+  return response;
+};
+
+export const fetchCommentsById = async (articleId) => {
+  const response = await asyncHandler(async () => {
+    return await api.get(`/api/v1/articles/comments/articles/${articleId}`);
+  });
+  return response;
+};
+
+export const addCommentOnArticle = async (articleId, commentText) => {
+  const response = await asyncHandler(async () => {
+    return await api.post("/api/v1/articles/comments/add", {
+      articleId,
+      commentText,
+    });
   });
   return response;
 };

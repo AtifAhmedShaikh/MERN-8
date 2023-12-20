@@ -43,15 +43,17 @@ const ChannelCard = ({
         {!hasFollowed ? (
           <Button
             type="button"
-            className="bg-green-600 text-gray-100 hover:bg-green-400"
             onClick={handleFollowButton}
+            variant={"primary"}
+            isLoading={false}
           >
             Follow
           </Button>
         ) : (
           <Button
             type="button"
-            className="bg-gray-600 text-gray-100 hover:bg-gray-400"
+            variant={"primary"}
+            isLoading={false}
             onClick={handleFollowButton}
           >
             Following

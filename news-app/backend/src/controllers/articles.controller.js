@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { asyncHandler } from "../utils/asyncHandler.js";
+import CustomError from "../error/CustomError.js";
 import {
     deleteArticleById,
     disLikeTheArticleByUser,
@@ -9,12 +9,11 @@ import {
     updateArticleById,
     writeArticle,
     isArticleLikedByUser,
-    saveArticleById,
-    findUserSavedArticles
+    findArticleCommentsById,
+    addCommentOnArticle
 } from "../services/article.service.js";
-import SavedArticleModel from "../models/SavedArticle.js";
 
-export const allArticles = asyncHandler(async (req, res, next) => {
+export const allArticles = asyncHandler(async (req, res) => {
     const articles = await findArticles();
     res.status(200).json({ articles });
 });
@@ -26,7 +25,7 @@ export const articleById = asyncHandler(async (req, res) => {
 });
 
 //store new article in DB from writeArticle function,Integrate channel as a author
-export const addNewArticle = asyncHandler(async (req, res, next) => {
+export const addNewArticle = asyncHandler(async (req, res) => {
     const { articleData } = req.body;
     const authorId = req.author._id;
     await writeArticle({
@@ -49,62 +48,48 @@ export const deleteArticle = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "article has successfully deleted " });
 });
 
-export const likeArticleById = asyncHandler(async (req, res, next) => {
+export const likeArticleById = asyncHandler(async (req, res) => {
     const { id: articleId } = req.params;
     const { _id: userId } = req.user;
     const hasLiked = await isArticleLikedByUser(articleId, userId);
     if (!hasLiked) {
-        const article = await likeTheArticleByUser(articleId, userId);
+        await likeTheArticleByUser(articleId, userId);
         res.status(200).json({ message: "your liked the article " });
     } else {
-        res.status(400).json({ message: "you already liked this article" });
+        throw new CustomError(409,"you already liked this one ");
     }
 });
 
-export const disLikeArticleById = asyncHandler(async (req, res, next) => {
+export const disLikeArticleById = asyncHandler(async (req, res) => {
     const { id: articleId } = req.params;
     const { _id: userId } = req.user;
     const hasLiked = await isArticleLikedByUser(articleId, userId);
     if (hasLiked) {
-        const article = await disLikeTheArticleByUser(articleId, userId);
+        await disLikeTheArticleByUser(articleId, userId);
         res.status(200).json({ message: "you dislike the article" });
     } else {
-        res.status(400).json({ message: "you not liked this article" });
+        throw new CustomError(409,"you not liked this one ");
     }
 });
 
-export const addSavedArticle = asyncHandler(async (req, res, next) => {
-    const { articleId } = req.body;
-    const { _id: userId } = req.user;
-    const isExists = await SavedArticleModel.findOne({ userId, articleId });
-    if (isExists) {
-        return res
-            .status(400)
-            .json({ message: "article has already in your collection " });
-    }
-    const saved = await saveArticleById(articleId, userId);
-    res.status(201).json({ saved });
-});
-
-export const userSavedArticles = asyncHandler(async (req, res, next) => {
-    const { _id: userId } = req.user;
-    const saved = await findUserSavedArticles(userId);
-    res.status(200).json({ articles: saved });
-});
-
-export const removeFromSaved = asyncHandler(async (req, res, next) => {
-    const { _id: userId } = req.user;
+//fetch all comments of specific article by Id
+export const fetchArticleComments = asyncHandler(async (req, res) => {
     const { id: articleId } = req.params;
-    const removeItem = await SavedArticleModel.findOneAndDelete({
-        userId,
-        articleId
-    });
-    if (!removeItem) {
-        return res.status(400).json({ message: "article not found" });
-    }
-    res.status(200).json({
-        message: "remove article from your save collection"
-    });
+    const comments = await findArticleCommentsById(articleId);
+    res.status(200).json({ comments });
 });
 
-
+//add new comment on specific article
+export const addComment = asyncHandler(async (req, res) => {
+    const { articleId, commentText } = req.body;
+    const { _id: userId } = req.user;
+    const createdComment = await addCommentOnArticle({
+        articleId,
+        commentText,
+        userId
+    });
+    res.status(200).json({
+        comment:createdComment,
+        message: "comment added successfully "
+    });
+});

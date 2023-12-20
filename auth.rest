@@ -1,8 +1,0 @@
-POST http:/localhost:5500/auth
-Content-Type: application/json
-Authorization: Bearer L
-
-{
-
-}
-

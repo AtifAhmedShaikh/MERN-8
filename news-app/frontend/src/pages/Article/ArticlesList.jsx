@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Container from "../../layouts/Container";
-import BottomBar from "../../layouts/BottomBar";
+import Container from "../../containers/Container";
+import BottomBar from "../../components/Navbar/BottomBar";
 import ArticleCard from "../../components/Cards/ArticleCard";
 import BackBar from "../../components/Navbar/BackBar";
 import Loader from "../../components/UI/Loader";

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import BackBar from "../../components/Navbar/BackBar";
 import ArticleCard from "../../components/Cards/ArticleCard";
-import BottomBar from "../../layouts/BottomBar";
-import Container from "../../layouts/Container";
+import BottomBar from "../../components/Navbar/BottomBar";
+import Container from "../../containers/Container";
 import { fetchChannelProfile } from "../../api/channels";
 import { useParams } from "react-router-dom";
 import Loader from "../../components/UI/Loader";

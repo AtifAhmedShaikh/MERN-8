@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 
 export const registerUser = async (userData) => {
   const response = await asyncHandler(async () => {
-    return await api.post("/api/v1/auth/register", { userData });
+    return await api.post("/api/v1/auth/register", userData);
   });
   return response;
 };

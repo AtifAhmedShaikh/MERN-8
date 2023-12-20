@@ -1,5 +1,8 @@
 import express from "express";
-import { isAuth } from "../middlewares/auth.middleware.js";
+import {
+    isAuthenticated,
+    isNewChannel
+} from "../middlewares/Authentication.middleware.js";
 import {
     addNewArticle,
     allArticles,
@@ -8,39 +11,41 @@ import {
     updateArticle,
     likeArticleById,
     disLikeArticleById,
-    addSavedArticle,
-    userSavedArticles,
-    removeFromSaved
+    fetchArticleComments,
+    addComment
 } from "../controllers/articles.controller.js";
-import { isNewChannel } from "../middlewares/channelAuth.middleware.js";
 
 const router = express.Router();
 
 //Get all articles route
-router.get("/all", isAuth, allArticles);
+router.route("/all").get(isAuthenticated, allArticles);
 
 //Get one specific article by its ID
-router.get("/one/:id", isAuth, articleById);
+router.route("/one/:id").get(isAuthenticated, articleById);
 
 //Create new article by news channel
-router.post("/create", isAuth, isNewChannel, addNewArticle);
+router.route("/create").post(isAuthenticated, isNewChannel, addNewArticle);
 
-//Update article by its ID
-router.put("/update/:id", isAuth, isNewChannel, updateArticle);
+//Update article by ID
+router.route("/update/:id").put(isAuthenticated, isNewChannel, updateArticle);
 
-//Delete article by its ID
-router.delete("/delete/:id", isAuth, isNewChannel, deleteArticle);
+//Delete article by ID
+router
+    .route("/delete/:id")
+    .delete(isAuthenticated, isNewChannel, deleteArticle);
 
-//Like article by its Id
-router.patch("/like/:id", isAuth, likeArticleById);
+//Like article by ID
+router.route("/like/:id").patch(isAuthenticated, likeArticleById);
 
-//DisLike article by its Id
-router.patch("/dislike/:id", isAuth, disLikeArticleById);
+//DisLike article by ID
+router.route("/dislike/:id").patch(isAuthenticated, disLikeArticleById);
 
-router.post("/save/add", isAuth, addSavedArticle);
+//fetch comments of specific article
+router
+    .route("/comments/articles/:id")
+    .get(isAuthenticated, fetchArticleComments);
 
-router.put("/save/remove/:id", isAuth, removeFromSaved);
-
-router.get("/save/all/:id", isAuth, userSavedArticles);
+//Add new comments on specific article
+router.route("/comments/add").post(isAuthenticated, addComment);
 
 export default router;

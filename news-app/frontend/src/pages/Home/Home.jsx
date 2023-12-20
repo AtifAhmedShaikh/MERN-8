@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../layouts/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import HeroContainer from "../../containers/HeroContainer";
 const Home = () => {
   return (

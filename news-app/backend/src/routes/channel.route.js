@@ -1,5 +1,5 @@
 import express from "express";
-import {isAuth} from "../middlewares/auth.middleware.js";
+import { isAuthenticated } from "../middlewares/Authentication.middleware.js";
 import {
     allChannels,
     channelById,
@@ -10,15 +10,15 @@ import {
 const router = express.Router();
 
 //Get all channels list
-router.get("/all", isAuth, allChannels);
+router.route("/all").get(isAuthenticated, allChannels);
 
 //Get one specific channel by its Id
-router.get("/one/:id", isAuth, channelById);
+router.route("/one/:id").get(isAuthenticated, channelById);
 
 //Get complete channel profile where its related articles and its Info
-router.get("/profiles/:id", channelProfileById);
+router.route("/profiles/:id").get(isAuthenticated, channelProfileById);
 
 //follow and unfollow the channel by channel Id
-router.patch("/follow/:id", isAuth, followToChannel);
+router.route("/follow/:id").patch(isAuthenticated, followToChannel);
 
 export default router;

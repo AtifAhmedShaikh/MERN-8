@@ -1,6 +1,6 @@
 import bcryptjs from "bcryptjs";
 import Jwt from "jsonwebtoken";
-import { tokenSecretKey } from "../config/exportEnv";
+import { TOKEN_SECRET_KEY } from "../config/exportEnv.js";
 export const hashedPassword = async password => {
     const hash = await bcryptjs.hash(password, 10);
     return hash;
@@ -13,7 +13,7 @@ export const comparePassword = async (original, hashed) => {
 
 export const userTokenGenerator = userObj => {
     try {
-        const userToken = Jwt.sign({ ...userObj }, tokenSecretKey, {
+        const userToken = Jwt.sign({ ...userObj }, TOKEN_SECRET_KEY, {
             expiresIn: "3d"
         });
         return userToken;
@@ -24,7 +24,7 @@ export const userTokenGenerator = userObj => {
 
 export const verifyUserToken = token => {
     try {
-        const isVerifiedUser = Jwt.verify(token, tokenSecretKey);
+        const isVerifiedUser = Jwt.verify(token, TOKEN_SECRET_KEY);
         return isVerifiedUser;
     } catch (error) {
         console.log(error);
