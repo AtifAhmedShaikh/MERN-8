@@ -18,13 +18,14 @@ export const createNewUser = async userData => {
     });
     return await newUser.save();
 };
-//register new channel account and Esure admin accept his request for account creating
+//register new channel account and Ensure admin accept his request for account creating
 export const createNewChannel = async channelData => {
     const hashed = await hashedPassword(channelData.password);
     const newUser = new UserModel({
         ...channelData,
         password: hashed,
-        role: "NEWS_CHANNEL"
+        role: "NEWS_CHANNEL",
+        approvalStatus:"PENDING"
     });
     return await newUser.save();
 };
@@ -34,7 +35,7 @@ export const findUserByEmail = async email => {
 };
 
 export const findUserByEmailAndPassword = async (email, password) => {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).select("+password");
     if (!user) return null;
     const isMatchedPassword = await comparePassword(password, user.password);
     if (!isMatchedPassword) return null;

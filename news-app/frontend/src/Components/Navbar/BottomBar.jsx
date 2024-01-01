@@ -15,6 +15,7 @@ const BottomBar = () => {
     { path: "/channels", label: "Channels", element: <FaUsers /> },
     { path: "/saved", label: "Collections", element: <FaRegBookmark /> },
     { path: "/articles/create", label: "Write", element: <FaPencilAlt /> },
+    { path: "/admin/dashboard", label: "Admin", element: <IoIosSettings /> },
     { path: "/settings", label: "Settings", element: <IoIosSettings /> },
   ];
   return (

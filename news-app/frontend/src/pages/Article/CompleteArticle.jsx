@@ -70,76 +70,77 @@ const CompleteArticle = () => {
 
   const { title, description, content, urlToImage, createdAt } = article;
   return (
-    <React.Fragment>
-      <BackBar pageLabel={"Article Details"} />
-      <Container className="lg:max-w-[65%] p-3">
-        <h2 className="text-2xl font-bold">{title}</h2>
+<React.Fragment>
+  <BackBar pageLabel={"Article Details"} />
+  <Container className="lg:max-w-[65%] p-3">
+    <h2 className="text-2xl font-bold">{title}</h2>
+    <img
+      className="w-full h-[50vh] lg:h-[65vh] rounded-lg mt-4"
+      src={urlToImage}
+      alt=""
+    />
+    <div className="flex flex-col lg:flex-row items-center justify-between px-5 mt-4">
+      <div className="flex items-center mb-2 lg:mb-0">
         <img
-          className="w-full h-[65vh] rounded-lg mt-4"
-          src={urlToImage}
-          alt=""
+          src={article?.author?.profileImage}
+          alt="..."
+          className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-[20px] lg:rounded-[25px] mx-3"
         />
-        <div className="flex justify-between px-5 mt-4">
-          <div>
-            <img
-              src={article?.author?.profileImage}
-              alt="..."
-              className="w-[50px] h-[50px] rounded-[25px] mx-3"
-            />
-            <span>{article?.author?.channelName}</span>
-          </div>
-          <span>{timeAgo(createdAt)}</span>
-        </div>
-        <div className="mt-4">
-          <h2 className="font-bold text-lg">Content</h2>
-          <p>{content}</p>
-        </div>
-        <div className="mt-5">
-          <h2 className="font-bold text-lg">Description</h2>
-          <p>{description}</p>
-        </div>
-        <div className="my-5">
-          <span>Likes :{likeCount}</span>
-          {isLiked ? (
-            <FaHeart onClick={handleDisLike} />
-          ) : (
-            <FaRegHeart onClick={handleLike} />
-          )}
-        </div>
+        <span className="text-sm lg:text-base">{article?.author?.channelName}</span>
+      </div>
+      <span className="text-xs lg:text-sm">{timeAgo(createdAt)}</span>
+    </div>
+    <div className="mt-4">
+      <h2 className="font-bold text-lg lg:text-xl">Content</h2>
+      <p className="text-sm lg:text-base">{content}</p>
+    </div>
+    <div className="mt-5">
+      <h2 className="font-bold text-lg lg:text-xl">Description</h2>
+      <p className="text-sm lg:text-base">{description}</p>
+    </div>
+    <div className="my-5">
+      <span>Likes: {likeCount}</span>
+      {isLiked ? (
+        <FaHeart onClick={handleDisLike} />
+      ) : (
+        <FaRegHeart onClick={handleLike} />
+      )}
+    </div>
+    <Button
+      type="button"
+      onClick={handleSave}
+      className="focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-1 focus:ring-blue-500 font-medium rounded-[4px] text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Save for Later
+    </Button>
+    {article.isCurrentChannelArticle && (
+      <div className="flex flex-col lg:flex-row gap-3 mt-3">
         <Button
           type="button"
-          onClick={handleSave}
-          className="focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-1 focus:ring-blue-500 font-medium rounded-[4px] text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          onClick={() => navigate(`/articles/update/${article._id}`)}
+          variant="success"
+          isLoading={false}
         >
-          save for later
+          Update Article
         </Button>
-        {article.isCurrentChannelArticle && (
-          <>
-            <Button
-              type="button"
-              onClick={() => navigate(`/articles/update/${article._id}`)}
-              variant={"success"}
-              isLoading={false}
-            >
-              Update Article{" "}
-            </Button>
-            <Button
-              type="button"
-              onClick={handleDelete}
-              variant={"success"}
-              isLoading={false}
-            >
-              Delete Article{" "}
-            </Button>
-          </>
-        )}
-        <div className="mt-5">
-          <ShareButtons />
-        </div>
-      </Container>
-      <CommentsContainer/>
-      <BottomBar />
-    </React.Fragment>
+        <Button
+          type="button"
+          onClick={handleDelete}
+          variant="success"
+          isLoading={false}
+        >
+          Delete Article
+        </Button>
+      </div>
+    )}
+    <div className="mt-5">
+      <ShareButtons />
+    </div>
+  </Container>
+  <CommentsContainer />
+  <BottomBar />
+</React.Fragment>
+
   );
 };
 

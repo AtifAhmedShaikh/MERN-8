@@ -31,23 +31,25 @@ const notifyEmail = async options => {
 
     const message = {
         from: `${SMTP_FROM_NAME} <${SMTP_FROM_EMAIL}>`,
-        to: options.email,
-        subject: options.subject,
+        to: options.sendTo,
+        subject: options.subject, // title of email
         template: "notifyEmail",
+        //In context all keys are variable which use in .hbs file
         context: {
-            count: options.count
-            // userName: "options.name",
-            // emailAddress: "options.email",
-            // password: "options.password",
+            userName: options.username,
+            description:options.description
         }
     };
-
-    const { accepted, ...rest } = await transporter.sendMail(message);
-    console.log({ ...rest, accepted });
-    if (accepted.length > 0) {
-        return true;
-    } else {
-        return false;
+    try {
+        const { accepted, ...rest } = await transporter.sendMail(message);
+        console.log({ ...rest, accepted });
+        if (accepted.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log("Error while sending email ");
     }
 };
 

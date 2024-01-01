@@ -33,38 +33,44 @@ const CreateArticle = () => {
   return (
     <React.Fragment>
       <BackBar />
-      <Container className={"flex flex-col justify-center items-center"}>
-        <h3>Create an new Article for users of App </h3>
-        <form onSubmit={submitHandler} className="flex flex-col min-w-[55%]">
+      <Container className="flex flex-col justify-center items-center">
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+          Create a new Article for users of App
+        </h3>
+        <form
+          onSubmit={submitHandler}
+          className="flex flex-col w-full max-w-[55%]"
+        >
           <FormInput
-            type={"text"}
-            label={"Title of Article"}
-            placeholder={"Enter title..."}
+            type="text"
+            label="Title of Article"
+            placeholder="Enter title..."
             value={articleData.title}
-            name={"title"}
+            name="title"
             onChange={handleInputs}
           />
           <FormInput
-            type={"text"}
-            label={"Content of Article "}
-            placeholder={"Enter content..."}
+            type="text"
+            label="Content of Article"
+            placeholder="Enter content..."
             value={articleData.content}
-            name={"content"}
+            name="content"
             onChange={handleInputs}
           />
           <FormInput
-            type={"text"}
-            label={"Description of Article "}
-            placeholder={"Enter description..."}
-            name={"description"}
+            type="text"
+            label="Description of Article"
+            placeholder="Enter description..."
+            name="description"
             value={articleData.description}
             onChange={handleInputs}
           />
-          <FormInput type={"file"} label={"Upload updated Image of article "} />
+          <FormInput type="file" label="Upload updated Image of article" />
           <Button
             type="submit"
-            variant={"primary"}
+            variant="primary"
             isLoading={false}
+            className="mt-4"
           >
             Publish Article
           </Button>

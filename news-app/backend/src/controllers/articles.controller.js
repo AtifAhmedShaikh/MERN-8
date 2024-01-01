@@ -1,5 +1,4 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import CustomError from "../error/CustomError.js";
 import {
     deleteArticleById,
     disLikeTheArticleByUser,
@@ -7,8 +6,7 @@ import {
     findArticles,
     likeTheArticleByUser,
     updateArticleById,
-    writeArticle,
-    isArticleLikedByUser,
+    createArticle,
     findArticleCommentsById,
     addCommentOnArticle
 } from "../services/article.service.js";
@@ -28,7 +26,7 @@ export const articleById = asyncHandler(async (req, res) => {
 export const addNewArticle = asyncHandler(async (req, res) => {
     const { articleData } = req.body;
     const authorId = req.author._id;
-    await writeArticle({
+    await createArticle({
         ...articleData,
         author: authorId
     });
@@ -51,25 +49,15 @@ export const deleteArticle = asyncHandler(async (req, res) => {
 export const likeArticleById = asyncHandler(async (req, res) => {
     const { id: articleId } = req.params;
     const { _id: userId } = req.user;
-    const hasLiked = await isArticleLikedByUser(articleId, userId);
-    if (!hasLiked) {
-        await likeTheArticleByUser(articleId, userId);
-        res.status(200).json({ message: "your liked the article " });
-    } else {
-        throw new CustomError(409,"you already liked this one ");
-    }
+    await likeTheArticleByUser(articleId, userId);
+    res.status(200).json({ message: "your liked the article " });
 });
 
 export const disLikeArticleById = asyncHandler(async (req, res) => {
     const { id: articleId } = req.params;
     const { _id: userId } = req.user;
-    const hasLiked = await isArticleLikedByUser(articleId, userId);
-    if (hasLiked) {
-        await disLikeTheArticleByUser(articleId, userId);
-        res.status(200).json({ message: "you dislike the article" });
-    } else {
-        throw new CustomError(409,"you not liked this one ");
-    }
+    await disLikeTheArticleByUser(articleId, userId);
+    res.status(200).json({ message: "you dislike the article" });
 });
 
 //fetch all comments of specific article by Id

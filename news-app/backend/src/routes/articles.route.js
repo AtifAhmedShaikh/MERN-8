@@ -1,7 +1,7 @@
 import express from "express";
 import {
     isAuthenticated,
-    isNewChannel
+    isNewsChannel
 } from "../middlewares/Authentication.middleware.js";
 import {
     addNewArticle,
@@ -24,15 +24,15 @@ router.route("/all").get(isAuthenticated, allArticles);
 router.route("/one/:id").get(isAuthenticated, articleById);
 
 //Create new article by news channel
-router.route("/create").post(isAuthenticated, isNewChannel, addNewArticle);
+router.route("/create").post(isAuthenticated, isNewsChannel, addNewArticle);
 
 //Update article by ID
-router.route("/update/:id").put(isAuthenticated, isNewChannel, updateArticle);
+router.route("/update/:id").put(isAuthenticated, isNewsChannel, updateArticle);
 
 //Delete article by ID
 router
     .route("/delete/:id")
-    .delete(isAuthenticated, isNewChannel, deleteArticle);
+    .delete(isAuthenticated, isNewsChannel, deleteArticle);
 
 //Like article by ID
 router.route("/like/:id").patch(isAuthenticated, likeArticleById);

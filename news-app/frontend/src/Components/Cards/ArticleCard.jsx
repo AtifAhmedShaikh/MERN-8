@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/UI/Button";
-import {timeAgo}from "../../utils/timeStamp"
+import { timeAgo } from "../../utils/timeStamp";
 const ArticleCard = ({
   _id,
   title,
@@ -11,20 +11,24 @@ const ArticleCard = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="article lg:w-[27rem] h-auto px-2 py-1 border-b pb-5 mb-5">
-      <img className="h-[12rem] w-[100%] rounded-md " src={urlToImage} alt="" />
-      <div className="flex gap-2 items-center justify-between px-3  mt-3">
-        <div className="flex gap-2 ">
+    <div className="article lg:w-full md:w-[27rem] h-auto px-2 py-1 border-b pb-5 mb-5">
+      <img
+        className="h-[12rem] w-full md:w-[27rem] rounded-md"
+        src={urlToImage}
+        alt=""
+      />
+      <div className="flex flex-col md:flex-row gap-2 items-center justify-between px-3 mt-3">
+        <div className="flex gap-2">
           <img
-            className="h-[30px] w-[30px] rounded-[15px]"
+            className="h-[30px] w-[30px] md:h-[40px] md:w-[40px] rounded-[15px]"
             src={"profileImage"}
             alt=""
           />
           <span className="text-sm">{username}</span>
         </div>
-        <span className="text-xs">{timeAgo(createdAt)}</span>
+        <span className="text-xs md:ml-auto">{timeAgo(createdAt)}</span>
       </div>
-      <p className="font-bold text-md mb-3">{title}</p>
+      <p className="font-bold text-md mb-3 line-clamp-3">{title}</p>
       <div className="flex justify-center">
         <Button
           type="button"

@@ -7,7 +7,7 @@ import Button from "../../components/UI/Button";
 import { login } from "../../store/slices/auth.slice";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks";
 import { registerUser } from "../../api/auth";
-import { FORM_VALIDATIONS } from "../../constants/validation";
+import { FORM_VALIDATIONS } from "../../config/validation";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -22,27 +22,34 @@ const SignUp = () => {
     loading: false,
     error: false,
   });
-  const [file, setFile] = useState(null);
 
-  // submit handler to call api and create user account and auto login
-  const submitHandler = async (data, event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("photo", file);
-    formData.append("username", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    const response = await registerUser(formData);
-    setSubmitStatus({ loading: true, error: false });
-    if (!response) {
-      setSubmitStatus({ loading: false, error: true });
-      return;
-    }
-    setSubmitStatus({ loading: false, error: false });
-    dispatch(login({ ...response?.data?.user }));
-    navigate("/articles");
-  };
+// submit handler to call api and create new user account and auto login
+const submitHandler = async (data, event) => {
+  event.preventDefault();
+
+  // Create a FormData object
+  const formData = new FormData();
+  // Append text data to the FormData
+  formData.append("name", data.name);
+  formData.append("username", data.username);
+  formData.append("email", data.email);
+  formData.append("password", data.password);
+  formData.append("role", "USER");
+  formData.append("profileImage", data.profileImage[0]);
+  formData.append("coverImage", data.coverImage[0]);
+  setSubmitStatus({ loading: true, error: false });
+  // Call the registerUser API with the FormData
+  const response = await registerUser(formData);
+  if(!response){
+    setSubmitStatus({ loading: false, error: true });
+    return;
+  }
+  setSubmitStatus({ loading: false, error: false });
+  dispatch(login({ ...response?.data?.user }));
+  navigate("/articles");
+  setSubmitStatus({ loading: false, error: true });
+};
+
   return (
     <React.Fragment>
       <div className="flex min-h-full flex-col justify-center px-6 py-3 lg:px-2">
@@ -92,7 +99,16 @@ const SignUp = () => {
               {...register("password", FORM_VALIDATIONS.password)}
               error={errors.password}
             />
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <input
+              type="file"
+              {...register("profileImage")}
+              className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
+            />
+            <input
+              type="file"
+              {...register("coverImage")}
+              className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
+            />
             {submitStatus.error && (
               <p className="text-red-600 text-[14px]">
                 something went wrong please try again{" "}
@@ -109,7 +125,11 @@ const SignUp = () => {
               </Button>
             </div>
           </form>
-          <AuthRelatedLinks />
+          <AuthRelatedLinks
+            text={"already hav an account !"}
+            linkLabel={"Login here !"}
+            path={"/auth/login"}
+          />
         </div>
       </div>
     </React.Fragment>

@@ -8,6 +8,9 @@ import ProtectedByChannel from "./Protected/ProtectedByChannel.jsx";
 import CreateArticle from "../pages/Article/CreateArticle.jsx";
 import UpdateArticle from "../pages/Article/UpdateArticle.jsx";
 import NotFoundPage from "../pages/Error/NotFoundPage.jsx";
+import DashBoard from "../pages/Admin/DashBoard.jsx";
+import ProtectedByAdmin from "./Protected/ProtectedByAdmin.jsx";
+import RegisterChannel from "../pages/Register/ChannelRegister.jsx";
 //import all pages form central point of pages
 const Router = () => {
   return (
@@ -16,6 +19,7 @@ const Router = () => {
       <Route exact path="/" element={<Home />} />
       <Route exact path="/auth/login" element={<Login />} />
       <Route exact path="/auth/signUp" element={<SignUp />} />
+      <Route exact path="/auth/channelRegister" element={<RegisterChannel />} />
       <Route path="*" element={<NotFoundPage />} />
       {/* protected routes by user */}
       <Route element={<ProtectedByUser />}>
@@ -32,6 +36,11 @@ const Router = () => {
       <Route element={<ProtectedByChannel />}>
         <Route exact path="/articles/create" element={<CreateArticle />} />
         <Route exact path="/articles/update/:id" element={<UpdateArticle />} />
+      </Route>
+      {/* protected routes by admin or App owner */}
+      <Route element={<ProtectedByAdmin />}>
+        <Route exact path="/admin/dashboard" element={<DashBoard />} />
+        <Route exact path="/admin/say" element={<>say hello from admin</>} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

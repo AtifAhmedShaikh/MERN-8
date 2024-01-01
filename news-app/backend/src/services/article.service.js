@@ -10,7 +10,7 @@ export const findArticleById = async id => {
     return await ArticleModel.findById(id);
 };
 
-export const writeArticle = async data => {
+export const createArticle = async data => {
     const newArr = new ArticleModel({ ...data });
     const saved = await newArr.save();
     return saved;

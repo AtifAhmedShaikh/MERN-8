@@ -1,4 +1,4 @@
-import api from "../config/api.config";
+import api from "../config/apiConfig";
 import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchArticles = async () => {

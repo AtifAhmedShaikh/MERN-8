@@ -7,7 +7,7 @@ import Button from "../../components/UI/Button.jsx";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks.jsx";
 import { login as loginSlice } from "../../store/slices/auth.slice.js";
 import { loginUser } from "../../api/auth.js";
-import { FORM_VALIDATIONS } from "../../constants/validation.js";
+import { FORM_VALIDATIONS } from "../../config/validation.js";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,11 +25,8 @@ const Login = () => {
   // login the  user, set userData in store and redirect to articles list page
   const submitHandler = async (data, event) => {
     event.preventDefault(); //stop page reloading on form submit
-    const formData = new FormData();
-    formData.set("email", data.email);
-    formData.set("password", data.password);
     setSubmitStatus({ loading: true, error: false });
-    const response = await loginUser(formData);
+    const response = await loginUser(data);
     // handle API error
     if (!response) {
       setSubmitStatus({ loading: false, error: true });
@@ -55,7 +52,6 @@ const Login = () => {
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
-            encType="multipart/form-data"
             onSubmit={handleSubmit(submitHandler)}
             method="post"
             autoComplete="off"
@@ -94,7 +90,11 @@ const Login = () => {
               </Button>
             </div>
           </form>
-          <AuthRelatedLinks />
+          <AuthRelatedLinks
+            text={"Don't have an account !"}
+            linkLabel={"Sign Up here !"}
+            path={"/auth/signUp"}
+          />
         </div>
       </div>
     </React.Fragment>

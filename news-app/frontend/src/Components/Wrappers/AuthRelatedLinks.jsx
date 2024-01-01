@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-
-const AuthRelatedLinks = () => {
+import PropType from "prop-types";
+const AuthRelatedLinks = ({ text, linkLabel, path }) => {
   return (
     <div className="w-full flex flex-col items-start my-container-5">
       <p className="mt-4 text-center text-sm text-gray-500">
-        Don&apos;t have an account
+        {text}
         <Link
-          to={"/auth/signUp"}
+          to={path}
           className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 ml-3"
         >
-          Sign Up
+          {linkLabel}
         </Link>
       </p>
       <p className="text-center text-sm text-gray-500">
@@ -23,6 +23,12 @@ const AuthRelatedLinks = () => {
       </p>
     </div>
   );
+};
+
+AuthRelatedLinks.propTypes = {
+  text: PropType.string,
+  path: PropType.string,
+  linkLabel: PropType.string,
 };
 
 export default AuthRelatedLinks;

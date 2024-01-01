@@ -1,4 +1,4 @@
-import api from "../config/api.config";
+import api from "../config/apiConfig";
 import { asyncHandler } from "../utils/asyncHandler";
 
 export const registerUser = async (userData) => {
@@ -15,6 +15,7 @@ export const loginUser = async (userData) => {
   return response;
 };
 
+//when page refresh user automatic login
 export const refreshAutoLogin = async () => {
   const response = await asyncHandler(async () => {
     return await api.post("/api/v1/auth/refresh");
@@ -22,10 +23,9 @@ export const refreshAutoLogin = async () => {
   return response;
 };
 
-
-export const logoutUser=async()=>{
-  const response=await asyncHandler(async()=>{
+export const logoutUser = async () => {
+  const response = await asyncHandler(async () => {
     return await api.post("/api/v1/auth/logout");
   });
   return response;
-}
+};

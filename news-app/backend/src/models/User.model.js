@@ -4,10 +4,17 @@ const userSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
+            minLength:[5,"Name at least should be Greater then 5 characters "],
+            maxLength:[15,"Name must be less then 15 characters "],
         },
         username: {
             type: String,
+            minLength:[5,"username at least should be Greater then 5 characters "],
+            maxLength:[15,"username must be less then 15 characters "],
+            unique:true,
+            lowercase:true,
+            trim:true,
             required: true
         },
         email: {
@@ -16,15 +23,16 @@ const userSchema = new mongoose.Schema(
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            select:false
         },
         profileImage: {
-            type: String,
-            default: "my-profile-Image-url"
+            type: String, //url from third party server's service
+            required: true
         },
-        backgroundImage: {
-            type: String,
-            default: "my-background-Image-url"
+        coverImage: {
+            type: String, //url from thirst party server's service
+            default:"myImage"
         },
         role: {
             type: String,
@@ -39,13 +47,18 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "Frontend Developer | React Developers"
         },
+        channelApprovalStatus:{
+            type:String,
+            enum: ["ACCEPTED", "REJECTED", "PENDING"],
+            default: "PENDING"
+        },
         followers: [{ type: mongoose.SchemaTypes.ObjectId, ref: "user" }],
         following: [{ type: mongoose.SchemaTypes.ObjectId, ref: "user" }]
     },
     { timestamps: true }
 );
 
-//custom functions of this model document
+//define custom functions of this model document
 userSchema.methods.checkPassword = () => {
     console.log("your function whenever you call it ");
 };

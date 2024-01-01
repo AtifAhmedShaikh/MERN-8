@@ -1,44 +1,98 @@
 import { cookieOptions } from "../config/options.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { userTokenGenerator, verifyUserToken } from "../utils/helper.js";
+import CustomError from "../error/CustomError.js";
+import notifyEmail from "../mails/notifyEmail.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import {
+    createNewChannel,
     createNewUser,
     findUserByEmail,
     findUserByEmailAndPassword,
     findUserById
 } from "../services/user.service.js";
-import CustomError from "../error/CustomError.js";
-import notifyEmail from "../mails/notifyEmail.js";
 
-//register new user, Ensure not already exist in database and also automatic login
-export const register = asyncHandler(async (req, res) => {
-    const { email, name, username, password } = req.body;
+//register new user, Ensure this is not already exist in database and also automatic login
+export const registerUser = asyncHandler(async (req, res) => {
+    const { name, username, email, password } = req.body;
+    //check If user email is already exist in database
     const isExist = await findUserByEmail(email);
     if (isExist) {
         throw new CustomError(409, "your Email is already Exists ");
     }
-    const sent = await notifyEmail({
-        email: "atifahmad2219@gmail.com",
-        count: 5,
-        subject: "This is testing email"
+    //upload profile Image on cloudinary server and Get Image URL
+    const profileImage = await uploadOnCloudinary(
+        req.files.profileImage[0].path
+    );
+    //upload cover Image on cloudinary server and Get Image URL
+    const coverImage = await uploadOnCloudinary(req.files.coverImage[0].path);
+    //If anyone create his user account
+    const createdUser = await createNewUser({
+        name,
+        username,
+        email,
+        password,
+        profileImage: profileImage.secure_url,
+        coverImage: coverImage.secure_url
     });
-    if (!sent) {
-        throw new CustomError(409, "your Email not exist in the world ");
-    }
-    const user = await createNewUser({ email, name, username, password });
-    const token = userTokenGenerator({ _id: user._id });
-    //set user token in user's browsers cookies
+    //send notify email to this user for informed account creation
+    await notifyEmail({
+        sendTo: "atifahmad2219@gmail.com",
+        subject: `Thanks for join us, your account has been created on NewsApp`,
+        description:
+            "your account has created ! we were has very excited to see you, why you here !",
+        username
+    });
+    const token = userTokenGenerator({ _id: createdUser._id });
     res.cookie("token", token, cookieOptions);
-    res.status(201).json({ user });
+    return res.status(201).json({ user: createdUser });
 });
 
+//register new channel, Ensure this is not already exist in database and also automatic login
+export const registerChannel = async (req, res) => {
+    const { name, username, email, password, about, headline } = req.body;
+    //check If user email is already exist in database
+    const isExist = await findUserByEmail(email);
+    if (isExist) {
+        throw new CustomError(409, "your Email is already Exists ");
+    }
+    //upload profile Image on cloudinary server and Get Image URL
+    const profileImage = await uploadOnCloudinary(
+        req.files.profileImage[0].path
+    );
+    //upload cover Image on cloudinary server and Get Image URL
+    const coverImage = await uploadOnCloudinary(req.files.coverImage[0].path);
+    //If anyone create his user account
+    const createdChannel = await createNewChannel({
+        name,
+        username,
+        email,
+        password,
+        about,
+        headline,
+        profileImage: profileImage.secure_url,
+        coverImage: coverImage.secure_url
+    });
+    await notifyEmail({
+        sendTo: "atifahmad2219@gmail.com",
+        subject: `your channel creation request has pending please wait for admin response...`,
+        description:
+            "Thanks for give us request for news channel creation so your request has pending please wait for admin response...",
+        username
+    });
+    //send notify email to this user for informed account creation
+    const token = userTokenGenerator({ _id: createdChannel._id });
+    res.cookie("token", token, cookieOptions);
+    return res.status(201).json({ user: createdChannel });
+};
 //controller for login, Get email and password from request body and find it
 export const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password)
     const user = await findUserByEmailAndPassword(email, password);
     //If user not found, Invalid email or password
     if (!user) {
-        throw new CustomError(404, "Invalid username or password");
+        throw new CustomError(400, "Invalid username or password");
     }
     const token = userTokenGenerator({ _id: user._id });
     res.cookie("token", token, cookieOptions);

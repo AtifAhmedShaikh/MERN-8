@@ -25,7 +25,7 @@ export const isAuthenticated = async (req, res, next) => {
 };
 
 //middleware of check is current user role is news channel or not,Include user in request as a author
-export const isNewChannel = async (req, res, next) => {
+export const isNewsChannel = async (req, res, next) => {
     try {
         const user = req.user;
         if (user.role === "NEWS_CHANNEL") {
