@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import BackBar from "../../components/Navbar/BackBar.jsx";
 import Container from "../../containers/Container.jsx";
-import Button from "../../components/UI/Button.jsx";
 import RequestCard from "../../components/Cards/RequestCard.jsx";
 import api from "../../config/apiConfig.js";
+import Loader from "../../components/UI/Loader.jsx";
 const DashBoard = () => {
   const [requestList, setRequestList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
       const response = await api.get("/api/v1/channels/all");
       setRequestList(response?.data?.channels);
+      setLoading(false);
     })();
   }, []);
   return (
@@ -30,6 +32,7 @@ const DashBoard = () => {
             <span className="font-bold min-w-[20%]">Email</span>
             <span className="font-bold min-w-[25%]">Action</span>
           </div>
+          {loading && <Loader />}
           {requestList.map((request) => {
             return <RequestCard key={request._id} {...request} />;
           })}
@@ -59,14 +62,6 @@ const DashBoard = () => {
                   ).length
                 }
               </span>
-            </div>
-            <div className="flex justify-end gap-2 h-auto">
-              <Button className="px-2 py-2 h-fit" variant={"danger"}>
-                Decline All
-              </Button>
-              <Button className="px-2 py-2 h-fit" variant={"success"}>
-                Accept All
-              </Button>
             </div>
           </div>
         </div>

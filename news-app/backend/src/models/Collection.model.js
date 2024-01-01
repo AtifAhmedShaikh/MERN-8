@@ -14,6 +14,6 @@ const savedArticleSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-const SavedArticleModel = mongoose.model("savedArticle", savedArticleSchema);
+const CollectionModel = mongoose.model("savedArticle", savedArticleSchema);
 
-export default SavedArticleModel;
+export default CollectionModel;

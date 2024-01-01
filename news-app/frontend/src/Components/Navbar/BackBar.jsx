@@ -18,6 +18,7 @@ const BackBar = ({ pageLabel }) => {
     if (!response) return;
     dispatch(logout());
     toast(response?.data?.message);
+    navigate("/");
   };
   return (
     <div className="w-full bg-gray-900 flex justify-between px-5 items-center h-12">

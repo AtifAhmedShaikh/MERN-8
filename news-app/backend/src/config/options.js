@@ -3,7 +3,7 @@ import { FRONTEND_ORIGIN } from "./exportEnv.js";
 //setup configuration of cookies for storing tokens in user's browser cookies
 export const cookieOptions = {
     httpOnly: true,
-    maxAge: 24 * 24 * 28 * 28,
+    maxAge: 1000 * 1000 * 60 * 60 * 24 * 3,
     secure: true
 };
 

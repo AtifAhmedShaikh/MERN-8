@@ -114,8 +114,16 @@ const submitHandler = async (data, event) => {
               {...register("coverImage")}
               className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
             />
-            <TextArea   {...register("headline")} label="Headline " placeholder="Type Headline of your News Channel "  />
-            <TextArea   {...register("about")} label="About" placeholder="Type About of your News Channel " />
+            <TextArea
+              {...register("headline")}
+              label="Headline "
+              placeholder="Type Headline of your News Channel "
+            />
+            <TextArea
+              {...register("about")}
+              label="About"
+              placeholder="Type About of your News Channel "
+            />
             {submitStatus.error && (
               <p className="text-red-600 text-[14px]">
                 something went wrong please try again{" "}
@@ -126,17 +134,18 @@ const submitHandler = async (data, event) => {
                 type="submit"
                 variant={"primary"}
                 className="px-2 py-2 "
+                isLoading={submitStatus.loading}
               >
                 Register New Channel
               </Button>
             </div>
           </form>
           <div className="w-full flex flex-col items-start">
-          <AuthRelatedLinks
-            text={"Don't have an account !"}
-            linkLabel={"Sign Up here !"}
-            path={"/auth/signUp"}
-          />
+            <AuthRelatedLinks
+              text={"already have an account !"}
+              linkLabel={"Login Up here !"}
+              path={"/auth/login"}
+            />
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { followToChannel } from "../../api/channels";
 import Button from "../UI/Button.jsx";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { toast } from "react-toastify";
 const ChannelCard = ({
   name,
   username,
@@ -13,12 +14,16 @@ const ChannelCard = ({
 }) => {
   const navigate = useNavigate();
   const [hasFollowed, setHasFollowed] = useState(false);
+  const [inProgress, setIsProgress] = useState(false);
 
   const handleFollowButton = async () => {
+    setIsProgress(true);
     const response = await followToChannel(_id);
     console.log(response);
     if (!response) return;
+    toast.success(response?.data?.message);
     setHasFollowed(true);
+    setIsProgress(false);
   };
   return (
     <div className="lg:w-[23%] h-[18rem] rounded-md border relative flex justify-between flex-col pb-2 overflow-hidden hover:scale-95">
@@ -44,17 +49,19 @@ const ChannelCard = ({
           <Button
             type="button"
             onClick={handleFollowButton}
+            className="px-2 py-2"
             variant={"primary"}
-            isLoading={false}
+            isLoading={inProgress}
           >
             Follow
           </Button>
         ) : (
           <Button
             type="button"
-            variant={"primary"}
-            isLoading={false}
             onClick={handleFollowButton}
+            className="px-2 py-2"
+            variant={"primary"}
+            isLoading={inProgress}
           >
             Following
           </Button>

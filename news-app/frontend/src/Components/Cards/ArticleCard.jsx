@@ -7,11 +7,11 @@ const ArticleCard = ({
   title,
   urlToImage,
   createdAt,
-  author: { username },
+  author: { username, profileImage },
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="article lg:w-full md:w-[27rem] h-auto px-2 py-1 border-b pb-5 mb-5">
+    <div className="article md:w-[27rem] h-auto px-2 py-1 border-b pb-5 mb-5">
       <img
         className="h-[12rem] w-full md:w-[27rem] rounded-md"
         src={urlToImage}
@@ -21,7 +21,7 @@ const ArticleCard = ({
         <div className="flex gap-2">
           <img
             className="h-[30px] w-[30px] md:h-[40px] md:w-[40px] rounded-[15px]"
-            src={"profileImage"}
+            src={profileImage}
             alt=""
           />
           <span className="text-sm">{username}</span>

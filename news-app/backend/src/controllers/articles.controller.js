@@ -10,6 +10,7 @@ import {
     findArticleCommentsById,
     addCommentOnArticle
 } from "../services/article.service.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const allArticles = asyncHandler(async (req, res) => {
     const articles = await findArticles();
@@ -24,13 +25,21 @@ export const articleById = asyncHandler(async (req, res) => {
 
 //store new article in DB from writeArticle function,Integrate channel as a author
 export const addNewArticle = asyncHandler(async (req, res) => {
-    const { articleData } = req.body;
+    const { title, content, description } = req.body;
+    console.log(title, content, description);
+    const profileImage = await uploadOnCloudinary(req.file.path);
     const authorId = req.author._id;
-    await createArticle({
-        ...articleData,
+    const createdArticle = await createArticle({
+        title,
+        content,
+        description,
+        urlToImage: profileImage.secure_url,
         author: authorId
     });
-    res.status(201).json({ message: "your new article has successfully !" });
+    res.status(201).json({
+        message: "your new article has successfully !",
+        article: createdArticle
+    });
 });
 
 export const updateArticle = asyncHandler(async (req, res) => {
@@ -77,7 +86,7 @@ export const addComment = asyncHandler(async (req, res) => {
         userId
     });
     res.status(200).json({
-        comment:createdComment,
+        comment: createdComment,
         message: "comment added successfully "
     });
 });

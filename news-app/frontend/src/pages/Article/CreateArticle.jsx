@@ -6,28 +6,28 @@ import Button from "../../components/UI/Button";
 import FormInput from "../../components/UI/FormInput";
 import { createArticleByChannel } from "../../api/articles";
 import { toast } from "react-toastify";
-
+import { useForm } from "react-hook-form";
+import { ARTICLE_VALIDATION } from "../../config/validation";
 const CreateArticle = () => {
-  const [articleData, setArticleData] = useState({
-    title: "",
-    content: "",
-    description: "",
-  });
-
+  const [isUploading,setIsUploading]=useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   // handle submit to call api for create new article by current channel
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const response = await createArticleByChannel(articleData);
+  const submitHandler = async (data,event) => {
+    event.preventDefault();
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("title",data.title);
+    formData.append("content",data.content);
+    formData.append("description",data.description);
+    formData.append("photo",data.photo[0]);
+    const response = await createArticleByChannel(formData);
     if (!response) return;
     toast.success(response?.data?.message);
-    setArticleData({ title: "", description: "", content: "" });
-  };
-
-  // handle form Inputs to associate with state
-  const handleInputs = (e) => {
-    const key = e.target.name;
-    const value = e.target.value;
-    setArticleData({ ...articleData, [key]: value });
+    setIsUploading(false)
   };
 
   return (
@@ -38,38 +38,42 @@ const CreateArticle = () => {
           Create a new Article for users of App
         </h3>
         <form
-          onSubmit={submitHandler}
           className="flex flex-col w-full max-w-[55%]"
+          method="post"
+          encType="multipart/form-data"
+          onSubmit={handleSubmit(submitHandler)}
         >
           <FormInput
             type="text"
             label="Title of Article"
             placeholder="Enter title..."
-            value={articleData.title}
-            name="title"
-            onChange={handleInputs}
+            {...register("title", ARTICLE_VALIDATION.title)}
+            error={errors.title}
           />
           <FormInput
             type="text"
             label="Content of Article"
             placeholder="Enter content..."
-            value={articleData.content}
-            name="content"
-            onChange={handleInputs}
+            {...register("content", ARTICLE_VALIDATION.content)}
+            error={errors.content}
           />
           <FormInput
             type="text"
             label="Description of Article"
             placeholder="Enter description..."
-            name="description"
-            value={articleData.description}
-            onChange={handleInputs}
+            {...register("description", ARTICLE_VALIDATION.description)}
+            error={errors.description}
           />
-          <FormInput type="file" label="Upload updated Image of article" />
+          <FormInput
+            type="file"
+            label="Upload Image of article"
+            className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
+            {...register("photo")}
+          />
           <Button
             type="submit"
             variant="primary"
-            isLoading={false}
+            isLoading={isUploading}
             className="mt-4 w-fit px-2 py-2"
           >
             Publish Article

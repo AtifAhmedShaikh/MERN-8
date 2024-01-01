@@ -14,6 +14,7 @@ const Navbar = () => {
     const response = await logoutUser();
     if (!response) return;
     dispatch(logout());
+    navigate("/");
     toast(response?.data?.message);
   };
   return (

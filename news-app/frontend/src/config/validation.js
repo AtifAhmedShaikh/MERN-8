@@ -54,10 +54,38 @@ export const FORM_VALIDATIONS = {
   },
 };
 
-// validate: {
-//   maxLength: (v) =>
-//     v.length <= 50 || "The email should have at most 50 characters",
-//   matchPattern: (v) =>
-//     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-//     "Email address must be a valid address",
-// },
+export const ARTICLE_VALIDATION = {
+  title: {
+    required: "title is required",
+    minLength: {
+      value: 10,
+      message: "title must be at least 10 characters",
+    },
+    maxLength: {
+      value: 40,
+      message: "title at least 50 characters",
+    },
+  },
+  content: {
+    required: "content is required",
+    minLength: {
+      value: 10,
+      message: "content must be at least 40 characters",
+    },
+    maxLength: {
+      value: 300,
+      message: "content must be Greater then 100 characters",
+    },
+  },
+  description: {
+    required: "description is required",
+    minLength: {
+      value: 10,
+      message: "description must be at least 50 characters",
+    },
+    maxLength: {
+      value: 1000,
+      message: "description must be Greater then 500 characters",
+    },
+  },
+};

@@ -42,11 +42,11 @@ export const isNewsChannel = async (req, res, next) => {
     }
 };
 //middleware of check admin role
-export const isAdmins = async (req, res, next) => {
+export const isAdmin = async (req, res, next) => {
     const user = req.user;
-    if (user.role !== "ADMINS") {
+    if (user.role !== "ADMIN") {
         return res.status(401).json({
-            message: "your not admin "
+            message: "your not authorized admin !"
         });
     }
     next();

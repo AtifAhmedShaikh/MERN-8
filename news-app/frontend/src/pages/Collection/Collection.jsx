@@ -25,7 +25,7 @@ const Collection = () => {
       <BackBar pageLabel={"saved articles"} />
       <Container className={"flex flex-col justify-start items-center"}>
         {loading && <Loader />}
-        {loading && collectionItems.length === 0 && <Loader />}
+        {!loading && collectionItems.length === 0 && <Loader />}
         <div className="lg:w-[45%] mt-5">
           {collectionItems?.map((item) => {
             return <Item key={item?._id} {...item} />;

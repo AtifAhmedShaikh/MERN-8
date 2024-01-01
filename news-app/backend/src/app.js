@@ -9,6 +9,7 @@ import userRouter from "./routes/user.route.js";
 import channelRouter from "./routes/channel.route.js";
 import { handleError } from "./error/errorHandler.js";
 import { corsOptions } from "./config/options.js";
+import collectionRouter from "./routes/collection.route.js";
 const app = express();
 
 app.use(cors(corsOptions));
@@ -22,7 +23,7 @@ app.use("/api/v1/articles", articlesRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/channels", channelRouter);
-
+app.use("/api/v1/collections", collectionRouter);
 //Handle Errors Globally !
 app.use(handleError);
 

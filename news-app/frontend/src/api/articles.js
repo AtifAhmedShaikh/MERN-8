@@ -17,9 +17,7 @@ export const fetchArticleById = async (articleId) => {
 
 export const createArticleByChannel = async (articleData) => {
   const response = await asyncHandler(async () => {
-    return await api.post("/api/v1/articles/create", {
-      articleData,
-    });
+    return await api.post("/api/v1/articles/create", articleData);
   });
   return response;
 };
@@ -56,7 +54,7 @@ export const deleteArticleById = async (articleId) => {
 //fetch user collection which contains all saved articles of user
 export const fetchUserCollection = async (userId) => {
   const response = await asyncHandler(async () => {
-    return await api.get(`/api/v1/articles/save/all/${userId}`);
+    return await api.get(`/api/v1/collections/collection/${userId}`);
   });
   return response;
 };
@@ -64,7 +62,7 @@ export const fetchUserCollection = async (userId) => {
 //add article into user collection
 export const addToCollection = async (articleId) => {
   const response = await asyncHandler(async () => {
-    return await api.post(`/api/v1/articles/save/add/${articleId}`);
+    return await api.post(`/api/v1/collections/collection/add/${articleId}`);
   });
   return response;
 };
@@ -72,7 +70,7 @@ export const addToCollection = async (articleId) => {
 //remove article from user collection
 export const removeToCollection = async (articleId) => {
   const response = await asyncHandler(async () => {
-    return await api.put(`/api/v1/articles/save/remove/${articleId}`);
+    return await api.delete(`/api/v1/collections/collection/remove/${articleId}`);
   });
   return response;
 };

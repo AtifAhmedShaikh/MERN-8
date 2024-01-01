@@ -1,35 +1,51 @@
 import React from "react";
 import { IoMdHome, IoIosSettings, IoMdNotifications } from "react-icons/io";
 import { FaRegBookmark, FaNewspaper, FaUsers } from "react-icons/fa6";
+import { GrUserAdmin } from "react-icons/gr";
 import { NavLink } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 const BottomBar = () => {
-  const isAdmin=true;
-  const isChannel=true;
-  const navIcons = [
-    { path: "/", label: "Home", element: <IoMdHome /> },
-    { path: "/articles", label: "Articles", element: <FaNewspaper /> },
-    {
-      path: "/notifications",
-      label: "Notifications",
-      element: <IoMdNotifications />,
-    },
-    { path: "/channels", label: "Channels", element: <FaUsers /> },
-    { path: "/saved", label: "Collections", element: <FaRegBookmark /> },
-    { path: "/articles/create", label: "Write", element: <FaPencilAlt /> },
-    { path: "/admin/dashboard", label: "Admin", element: <IoIosSettings /> },//only admin 
-    { path: "/settings", label: "Settings", element: <IoIosSettings /> },
-  ];
+  const generateNavIcons = (user) => {
+    const baseIcons = [
+      { path: "/", label: "Home", element: <IoMdHome /> },
+      { path: "/articles", label: "Articles", element: <FaNewspaper /> },
+      {
+        path: "/notifications",
+        label: "Notifications",
+        element: <IoMdNotifications />,
+      },
+      { path: "/channels", label: "Channels", element: <FaUsers /> },
+      { path: "/saved", label: "Collections", element: <FaRegBookmark /> },
+      { path: "/settings", label: "Settings", element: <IoIosSettings /> },
+    ];
+
+    if (user) {
+      if (user.role === "ADMIN") {
+        baseIcons.push({
+          path: "/admin/dashboard",
+          label: "Admin",
+          element: <GrUserAdmin />,
+        });
+      }
+      if (user.role === "NEWS_CHANNEL") {
+        baseIcons.push({
+          path: "/articles/create",
+          label: "Write",
+          element: <FaPencilAlt />,
+        });
+      }
+    }
+
+    return baseIcons;
+  };
+  const user = useSelector((state) => state.auth.user);
+  const navIcons = generateNavIcons(user);
+
   return (
     <React.Fragment>
       <div className="fixed bottom-0 left-0 w-full h-14 flex justify-between items-end text-gray-100 text-lg px-5 bg-gray-800 z-20">
         {navIcons.map((icon) => {
-          if(!isAdmin&&icon.path=="/admin/dashboard"){
-            return <></>
-          }
-          if(!isChannel&&icon.path==="/articles/create"){
-            return <></>
-          }
           return (
             <NavLink
               to={icon.path}

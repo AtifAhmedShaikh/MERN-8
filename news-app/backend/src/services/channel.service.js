@@ -48,8 +48,14 @@ export const isChannelFollowedByUser = async (channelId, userId) => {
     return false;
 };
 
+export const acceptChannelRequestByAdmin = async channelId => {
+    return await UserModel.findByIdAndUpdate(channelId, {
+        channelApprovalStatus: "ACCEPTED"
+    });
+};
 
-
-export const acceptChannelRequestByAdmin=async(channelId)=>{
-    return await  UserModel.findByIdAndUpdate(channelId,{channelApprovalStatus:"ACCEPTED"})
-}
+export const rejectChannelRequestByAdmin = async channelId => {
+    return await UserModel.findByIdAndUpdate(channelId, {
+        channelApprovalStatus: "REJECTED"
+    });
+};

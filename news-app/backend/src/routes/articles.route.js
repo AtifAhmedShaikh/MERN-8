@@ -14,8 +14,19 @@ import {
     fetchArticleComments,
     addComment
 } from "../controllers/articles.controller.js";
+import multer from "multer";
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callBack) {
+        callBack(null, "src/uploads/");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + "-" + Date.now() + ".jpg");
+    }
+});
+const upload = multer({ storage: storage });
 
 //Get all articles route
 router.route("/all").get(isAuthenticated, allArticles);
@@ -24,7 +35,14 @@ router.route("/all").get(isAuthenticated, allArticles);
 router.route("/one/:id").get(isAuthenticated, articleById);
 
 //Create new article by news channel
-router.route("/create").post(isAuthenticated, isNewsChannel, addNewArticle);
+router
+    .route("/create")
+    .post(
+        isAuthenticated,
+        isNewsChannel,
+        upload.single("photo"),
+        addNewArticle
+    );
 
 //Update article by ID
 router.route("/update/:id").put(isAuthenticated, isNewsChannel, updateArticle);

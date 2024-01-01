@@ -1,11 +1,15 @@
 import express from "express";
-import { isAdmins, isAuthenticated, isNewsChannel } from "../middlewares/Authentication.middleware.js";
+import {
+    isAdmin,
+    isAuthenticated
+} from "../middlewares/Authentication.middleware.js";
 import {
     acceptChannelRequest,
     allChannels,
     channelById,
     channelProfileById,
-    followToChannel
+    followToChannel,
+    rejectChannelRequest
 } from "../controllers/channel.controller.js";
 
 const router = express.Router();
@@ -22,6 +26,17 @@ router.route("/profiles/:id").get(isAuthenticated, channelProfileById);
 //follow and unfollow the channel by channel Id
 router.route("/follow/:id").patch(isAuthenticated, followToChannel);
 
-router.patch("/request/accept/:id",isNewsChannel,isAdmins,acceptChannelRequest)
+router.patch(
+    "/request/accept/:id",
+    isAuthenticated,
+    isAdmin,
+    acceptChannelRequest
+);
+router.patch(
+    "/request/reject/:id",
+    isAuthenticated,
+    isAdmin,
+    rejectChannelRequest
+);
 
 export default router;

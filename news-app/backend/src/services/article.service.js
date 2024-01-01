@@ -1,13 +1,12 @@
 import ArticleModel from "../models/Article.model.js";
-import SavedArticleModel from "../models/SavedArticle.js";
 import CommentModel from "../models/Comment.model.js";
 
 export const findArticles = async () => {
-    return await ArticleModel.find().populate("author");
+    return await ArticleModel.find({}).populate("author");
 };
 
 export const findArticleById = async id => {
-    return await ArticleModel.findById(id);
+    return await ArticleModel.findById(id).populate("author");
 };
 
 export const createArticle = async data => {
@@ -43,20 +42,6 @@ export const findChannelArticles = async channelId => {
 export const isArticleLikedByUser = async (articleId, userId) => {
     const article = await findArticleById(articleId);
     return article.likes.includes(userId);
-};
-
-export const saveArticleById = async (articleId, userId) => {
-    const article = new SavedArticleModel({
-        articleId,
-        userId
-    });
-    return await article.save();
-};
-
-export const findUserSavedArticles = async userId => {
-    return await SavedArticleModel.find({ userId }).populate(
-        "articleId userId"
-    );
 };
 
 export const findArticleCommentsById = async articleId => {

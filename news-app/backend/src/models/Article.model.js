@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { defaultArticleImage } from "../constants.js";
 
 const articleSchema = new mongoose.Schema(
     {
@@ -17,7 +16,7 @@ const articleSchema = new mongoose.Schema(
         },
         urlToImage: {
             type: String,
-            default: defaultArticleImage
+            required: true
         },
         author: {
             type: mongoose.SchemaTypes.ObjectId,
