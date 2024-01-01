@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import FormInput from "../../components/UI/FormInput";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import TextArea from "../../components/UI/TextArea";
 import { useForm } from "react-hook-form";
 import { FORM_VALIDATIONS } from "../../config/validation";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../api/auth";
 import { login } from "../../store/slices/auth.slice.js";
+import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks";
+import Button from "../../components/UI/Button";
 const RegisterChannel = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +33,10 @@ const submitHandler = async (data, event) => {
   formData.append("username", data.username);
   formData.append("email", data.email);
   formData.append("password", data.password);
-  formData.append("role", "USER");
+  formData.append("role", "NEWS_CHANNEL");
+  formData.append("about",data.about);
+  formData.append("headline",data.headline);
+
   formData.append("profileImage", data.profileImage[0]);
   formData.append("coverImage", data.coverImage[0]);
   setSubmitStatus({ loading: true, error: false });
@@ -109,41 +114,29 @@ const submitHandler = async (data, event) => {
               {...register("coverImage")}
               className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
             />
-            <TextArea label="Headline " placeholder="Type Headline of your News Channel " />
-            <TextArea label="About" placeholder="Type About of your News Channel " />
+            <TextArea   {...register("headline")} label="Headline " placeholder="Type Headline of your News Channel "  />
+            <TextArea   {...register("about")} label="About" placeholder="Type About of your News Channel " />
             {submitStatus.error && (
               <p className="text-red-600 text-[14px]">
                 something went wrong please try again{" "}
               </p>
             )}
             <div>
-              <button
+              <Button
                 type="submit"
-                className="flex w-fit justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-md font-normal leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                variant={"primary"}
+                className="px-2 py-2 "
               >
                 Register New Channel
-              </button>
+              </Button>
             </div>
           </form>
           <div className="w-full flex flex-col items-start">
-            <p className="mt-4 text-center text-sm text-gray-500">
-              Already have channel Account
-              <Link
-                to={"/auth/signUp"}
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 ml-3"
-              >
-                Login
-              </Link>
-            </p>
-            <p className="text-center text-sm text-gray-500">
-              Go back to Home
-              <Link
-                to={"/"}
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 ml-3"
-              >
-                Home
-              </Link>
-            </p>
+          <AuthRelatedLinks
+            text={"Don't have an account !"}
+            linkLabel={"Sign Up here !"}
+            path={"/auth/signUp"}
+          />
           </div>
         </div>
       </div>

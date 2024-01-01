@@ -51,6 +51,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 //register new channel, Ensure this is not already exist in database and also automatic login
 export const registerChannel = async (req, res) => {
     const { name, username, email, password, about, headline } = req.body;
+    console.log(name, username, email, password, about, headline)
     //check If user email is already exist in database
     const isExist = await findUserByEmail(email);
     if (isExist) {

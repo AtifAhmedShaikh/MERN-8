@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { findChannelArticles } from "../services/article.service.js";
 import {
+    acceptChannelRequestByAdmin,
     findChannelById,
     findChannels,
     followingTheChannelByUser,
@@ -46,3 +47,10 @@ export const followToChannel = asyncHandler(async (req, res, next) => {
         });
     }
 });
+
+
+export const acceptChannelRequest=asyncHandler(async(req,res)=>{
+    const channelId=req.params.id;
+    const approval=await acceptChannelRequestByAdmin(channelId);
+    res.status(202).json({message:"your request has approved by App Admin "});
+})

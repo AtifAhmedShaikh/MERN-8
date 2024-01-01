@@ -47,3 +47,9 @@ export const isChannelFollowedByUser = async (channelId, userId) => {
     if (hasFollowing && hasFollower) return true;
     return false;
 };
+
+
+
+export const acceptChannelRequestByAdmin=async(channelId)=>{
+    return await  UserModel.findByIdAndUpdate(channelId,{channelApprovalStatus:"ACCEPTED"})
+}

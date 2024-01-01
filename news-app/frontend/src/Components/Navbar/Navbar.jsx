@@ -45,6 +45,14 @@ const Navbar = () => {
               >
                 Sign In
               </Button>
+              <Button
+                className="w-fit "
+                variant={"success"}
+                isLoading={false}
+                onClick={() => navigate("/auth/channelRegister")}
+              >
+                Join As Channel
+              </Button>
             </div>
           ) : (
             <Button

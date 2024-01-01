@@ -70,7 +70,7 @@ const CreateArticle = () => {
             type="submit"
             variant="primary"
             isLoading={false}
-            className="mt-4"
+            className="mt-4 w-fit px-2 py-2"
           >
             Publish Article
           </Button>
