@@ -14,7 +14,7 @@ export const comparePassword = async (original, hashed) => {
 export const userTokenGenerator = userObj => {
     try {
         const userToken = Jwt.sign({ ...userObj }, TOKEN_SECRET_KEY, {
-            expiresIn: "3d"
+            expiresIn : Date.now() * 3600*1000
         });
         return userToken;
     } catch (error) {

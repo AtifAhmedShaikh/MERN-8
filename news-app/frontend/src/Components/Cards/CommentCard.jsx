@@ -6,7 +6,7 @@ const CommentCard = ({
   userId: { profileImage, name },
 }) => {
   return (
-    <div className="w-100 h-20 px-2 overflow-y-hidden border-b pb-3">
+    <div className="w-100 h-20 px-2 py-2 overflow-y-hidden border-b pb-3">
       <div className="flex gap-2 items-center justify-between">
         <div className="flex gap-2 items-center">
           <img

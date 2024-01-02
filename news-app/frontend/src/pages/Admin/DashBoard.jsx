@@ -6,6 +6,7 @@ import api from "../../config/apiConfig.js";
 import Loader from "../../components/UI/Loader.jsx";
 const DashBoard = () => {
   const [requestList, setRequestList] = useState([]);
+  const [update,setUpdate] = useState(0);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
@@ -13,61 +14,74 @@ const DashBoard = () => {
       setRequestList(response?.data?.channels);
       setLoading(false);
     })();
-  }, []);
+  }, [update]);
   return (
     <React.Fragment>
       <BackBar pageLabel={"DashBoard"} />
       <Container
         className={"w-full px-2 flex flex-col items-center text-center"}
       >
-        <h3 className="text-2xl font-bold mb-5 mt-3">
-          {" "}
-          Request for Creating a Channel{" "}
-        </h3>
-        <div className="min-w-[55%]">
-          <div className="flex justify-between items-center px-2 border-b py-2 text-center">
-            <span className="font-bold min-w-[15%]">Profile</span>
-            <span className="font-bold min-w-[15%]">Name</span>
-            <span className="font-bold min-w-[20%]">Username</span>
-            <span className="font-bold min-w-[20%]">Email</span>
-            <span className="font-bold min-w-[25%]">Action</span>
-          </div>
-          {loading && <Loader />}
-          {requestList.map((request) => {
-            return <RequestCard key={request._id} {...request} />;
-          })}
-          <div className="flex justify-between gap-2 mt-5">
-            <div className="text-[14px] flex flex-col h-auto gap-2">
-              <span>
-                Total Request :{" "}
-                {
-                  requestList.filter(
-                    (request) => request.channelApprovalStatus === "PENDING"
-                  ).length
-                }
-              </span>
-              <span>
-                Accepted Request :{" "}
-                {
-                  requestList.filter(
-                    (request) => request.channelApprovalStatus === "ACCEPTED"
-                  ).length
-                }
-              </span>
-              <span>
-                Rejected Request :{" "}
-                {
-                  requestList.filter(
-                    (request) => request.channelApprovalStatus === "REJECTED"
-                  ).length
-                }
-              </span>
+        {/* Container for demo purpose */}
+        <div className="container my-12 py-12 mx-auto px-4 md:px-6 lg:px-12">
+          {/*Section: Design Block*/}
+          <section className="mb-20 text-gray-800">
+            <div className="block rounded-lg shadow-lg bg-white">
+              <div className="flex flex-col">
+                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="overflow-hidden">
+                      <table className="min-w-full mb-0">
+                        <thead className="border-b bg-gray-50 rounded-t-lg text-left">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="rounded-tl-lg text-sm font-medium px-6 py-4"
+                            >
+                              NAME
+                            </th>
+                            <th
+                              scope="col"
+                              className="text-sm font-medium px-6 py-4"
+                            >
+                              TITLE
+                            </th>
+                            <th
+                              scope="col"
+                              className="text-sm font-medium px-6 py-4"
+                            >
+                              STATUS
+                            </th>
+                            <th
+                              scope="col"
+                              className="text-sm font-medium px-6 py-4"
+                            >
+                              Action
+                            </th>
+                          
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {loading&&<Loader/>}
+                          {requestList.map((request) => {
+                            return (
+                              <RequestCard setUpdate={setUpdate} key={request._id} {...request} />
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
+          {/*Section: Design Block*/}
         </div>
+        {/* Container for demo purpose */}
       </Container>
     </React.Fragment>
   );
 };
 
 export default DashBoard;
+

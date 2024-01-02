@@ -41,16 +41,11 @@ const Settings = () => {
           />
         </div>
         <div className="flex flex-col gap-3 mt-4 justify-start lg:w-[45%]">
-          <Button
-            onClick={() => navigate("/channels/auth/login")}
-            variant={"success"}
-            isLoading={false}
-          >
-            Login Channel Account
-          </Button>
+          
           <Button
             onClick={() => navigate("/channels/auth/register")}
             variant={"success"}
+            className="w-fit px-2 py-2"
             isLoading={false}
           >
             Register New Channel

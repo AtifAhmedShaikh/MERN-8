@@ -30,7 +30,7 @@ const ChannelProfile = () => {
         <div className="flex justify-center lg:w-[35%] flex-col">
           <img
             className="lg:w-[100%] lg:h-[22vh] rounded-md"
-            src={channelInfo?.backgroundImage}
+            src={channelInfo?.coverImage}
             alt=""
           />
           <div className="flex justify-between px-2 mt-2">
@@ -77,7 +77,8 @@ const ChannelProfile = () => {
             <p className="text-[14px]">{channelInfo?.about}</p>
           </div>
           <div className="mt-5 px-3">
-            <h3 className="font-bold text-lg mb-5">News</h3>
+            <h3 className="font-bold text-lg mb-5">Articles</h3>
+            {!loading&&articles.length===0&&<p>not have articles yet!</p>}
             {articles?.map((article) => {
               return <ArticleCard key={article._id} />;
             })}

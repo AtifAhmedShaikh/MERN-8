@@ -119,7 +119,7 @@ const submitHandler = async (data, event) => {
                 type="submit"
                 variant={"success"}
                 isLoading={submitStatus.loading}
-                className="w-fit"
+                className="w-fit px-2 py-2"
               >
                 Create Account
               </Button>

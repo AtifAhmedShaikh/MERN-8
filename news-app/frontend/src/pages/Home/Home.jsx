@@ -36,7 +36,7 @@ const Home = () => {
       <Navbar />
       <div
         className="bg-cover bg-center h-screen flex items-center relative"
-        style={{ backgroundImage: 'url("/backImage.jpg")' }}
+        style={{ backgroundImage: 'url("https://elements-video-cover-images-0.imgix.net/files/cc922fe3-6a7c-4659-9eef-e6f2ac761188/inline_image_preview.png?auto=compress&h=630&w=1200&fit=crop&crop=edges&fm=jpeg&s=aaadad976b4f2e7a196a1da5a113f3f5")' }}
       >
         <div className="text-white text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-yellow-400">

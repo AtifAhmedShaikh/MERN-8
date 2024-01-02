@@ -35,7 +35,7 @@ const CompleteArticle = () => {
       if (!response) return;
       setArticle({
         ...response.data.article,
-        isCurrentChannelArticle: response?.data?.article?.author === user._id,
+        isCurrentChannelArticle: response?.data?.article?.author._id === user._id,
       });
       setLikeCount(response.data.article.likes.length);
       setLiked(response.data.article.likes.includes(user._id));
@@ -64,6 +64,7 @@ const CompleteArticle = () => {
     if (!response) return;
     toast(response?.data?.message);
     console.log(response);
+    navigate("/articles")
   };
 
   if (loading) return <Loader />;//If data is loading  display Loader
@@ -119,6 +120,7 @@ const CompleteArticle = () => {
           type="button"
           onClick={() => navigate(`/articles/update/${article._id}`)}
           variant="success"
+          className="w-fit px-2 py-2"
           isLoading={false}
         >
           Update Article
@@ -127,6 +129,7 @@ const CompleteArticle = () => {
           type="button"
           onClick={handleDelete}
           variant="success"
+          className="w-fit px-2 py-2"
           isLoading={false}
         >
           Delete Article

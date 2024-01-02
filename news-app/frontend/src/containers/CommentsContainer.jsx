@@ -28,10 +28,10 @@ const CommentsContainer = () => {
   return (
     <Container
       className={
-        "w-[45%] bg-gray-100 rounded-lg ml-5 mb-[6rem] relative overflow-scroll overflow-x-hidden"
+        "w-[45%] bg-gray-100 rounded-lg ml-5 py-5 mb-[6rem] relative overflow-scroll overflow-x-hidden"
       }
     >
-      <div className="flex justify-start ">
+      <div className="flex justify-start mb-5 ">
         <h3 className="ml-4">Comments of Articles</h3>
       </div>
       <div className="flex flex-col w-100">

@@ -6,9 +6,15 @@ import FormInput from "../../components/UI/FormInput.jsx";
 import Button from "../../components/UI/Button.jsx";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks.jsx";
 import { login as loginSlice } from "../../store/slices/auth.slice.js";
-import { loginUser } from "../../api/auth.js";
+import { loginUser, loginWithGoogle } from "../../api/auth.js";
 import { FORM_VALIDATIONS } from "../../config/validation.js";
+import Swal from "sweetalert2";
+
+
+
 const Login = () => {
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -21,7 +27,7 @@ const Login = () => {
     loading: false,
     error: false,
   });
-
+  
   // login the  user, set userData in store and redirect to articles list page
   const submitHandler = async (data, event) => {
     event.preventDefault(); //stop page reloading on form submit
@@ -32,6 +38,13 @@ const Login = () => {
       setSubmitStatus({ loading: false, error: true });
       return;
     }
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: "You success work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
     setSubmitStatus({ loading: false, error: false });
     dispatch(loginSlice({ ...response.data.user }));
     navigate("/articles");
@@ -95,6 +108,7 @@ const Login = () => {
             linkLabel={"Sign Up here !"}
             path={"/auth/signUp"}
           />
+        <Button variant={"success"} className="px-2  py-2 w-fit " onClick={loginWithGoogle}>Login with Google </Button>
         </div>
       </div>
     </React.Fragment>

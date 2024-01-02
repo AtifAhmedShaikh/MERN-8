@@ -1,6 +1,7 @@
 import api from "../config/apiConfig";
 import { asyncHandler } from "../utils/asyncHandler";
-
+import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "./auth/firbase.js";
 export const registerUser = async (userData) => {
   const response = await asyncHandler(async () => {
     return await api.post("/api/v1/auth/register", userData);
@@ -29,3 +30,16 @@ export const logoutUser = async () => {
   });
   return response;
 };
+
+export const loginWithGoogle=()=>{
+  const googleProvider = new GoogleAuthProvider();
+  signInWithPopup(auth, googleProvider)
+  .then(async (result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    console.log(credential);
+   
+  })
+  .catch((error) => {
+   console.log(error)
+  });
+}

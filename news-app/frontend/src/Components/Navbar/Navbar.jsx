@@ -31,7 +31,7 @@ const Navbar = () => {
           {!authStatus ? (
             <div className="flex gap-1">
               <Button
-                className="w-fit "
+             className="w-fit px-2 py-2"
                 variant={"success"}
                 isLoading={false}
                 onClick={() => navigate("/auth/signUp")}
@@ -39,7 +39,7 @@ const Navbar = () => {
                 Sign Up
               </Button>
               <Button
-                className="w-fit "
+                className="w-fit px-2 py-2"
                 variant={"success"}
                 isLoading={false}
                 onClick={() => navigate("/auth/login")}
@@ -47,7 +47,7 @@ const Navbar = () => {
                 Sign In
               </Button>
               <Button
-                className="w-fit "
+  className="w-fit px-2 py-2"
                 variant={"success"}
                 isLoading={false}
                 onClick={() => navigate("/auth/channelRegister")}
@@ -57,7 +57,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Button
-              className="w-fit "
+              className="w-fit px-2 py-2"
               variant={"success"}
               isLoading={false}
               onClick={handleLogout}
