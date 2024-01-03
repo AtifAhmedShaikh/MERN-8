@@ -9,13 +9,15 @@ import {
     channelById,
     channelProfileById,
     followToChannel,
-    rejectChannelRequest
+    rejectChannelRequest,
+    allRequest
 } from "../controllers/channel.controller.js";
 
 const router = express.Router();
 
 //Get all channels list
 router.route("/all").get(isAuthenticated, allChannels);
+router.route("/requests/all").get(isAuthenticated, isAdmin, allRequest);
 
 //Get one specific channel by its Id
 router.route("/one/:id").get(isAuthenticated, channelById);

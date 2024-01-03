@@ -5,6 +5,7 @@ import Container from "../../containers/Container";
 import Button from "../../components/UI/Button";
 import FormInput from "../../components/UI/FormInput";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import { fetchArticleById, updateArticleByChannel } from "../../api/articles";
 const UpdateArticle = () => {
   const [updatedArticle, setUpdatedArticle] = useState({});
@@ -24,6 +25,14 @@ const UpdateArticle = () => {
     e.preventDefault();
     const response = await updateArticleByChannel(updatedArticle);
     if (!response) return;
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: response?.data?.message,
+      showConfirmButton: false,
+      timer: 1500
+    });
+
     setUpdatedArticle({});
     navigate("/articles");
   };
@@ -64,8 +73,12 @@ const UpdateArticle = () => {
             value={updatedArticle?.description}
             onChange={handleInputs}
           />
-          <FormInput type={"file"} label={"Upload updated Image of article "} />
-          <Button type="submit" variant={"primary"} isLoading={false}>
+          <Button
+            type="submit"
+            className="w-fit px-2 py-2"
+            variant={"primary"}
+            isLoading={false}
+          >
             Update Article
           </Button>
         </form>

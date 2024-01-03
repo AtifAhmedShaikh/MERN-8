@@ -21,7 +21,11 @@ const NotFoundPage = () => {
             >
               Home
             </Button>
-            <Button variant={"success"} onClick={() => navigate("/auth/login")}>
+            <Button
+              variant={"success"}
+              className="px-2 py-2 w-fit"
+              onClick={() => navigate("/auth/login")}
+            >
               Login
             </Button>
           </div>

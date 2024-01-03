@@ -10,8 +10,9 @@ const DashBoard = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
-      const response = await api.get("/api/v1/channels/all");
+      const response = await api.get("/api/v1/channels/requests/all");
       setRequestList(response?.data?.channels);
+      console.log(response?.data?.channels);
       setLoading(false);
     })();
   }, [update]);

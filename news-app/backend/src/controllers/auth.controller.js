@@ -15,6 +15,14 @@ import {
 //register new user, Ensure this is not already exist in database and also automatic login
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, username, email, password } = req.body;
+    //validate user data
+    if ([name, email, username, password].some(field => field=== "")) {
+        throw new CustomError(400, "All fields are required");
+    }
+    //validate profile Image and cover Image
+    if (!req.files.profileImage[0].path || !req.files.coverImage[0].path) {
+        throw new CustomError(409, "please upload Images ");
+    }
     //check If user email is already exist in database
     const isExist = await findUserByEmail(email);
     if (isExist) {
@@ -43,6 +51,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             "your account has created ! we were has very excited to see you, why you here !",
         username
     });
+    //Generate Jwt token and assign to user in cookie
     const token = userTokenGenerator({ _id: createdUser._id });
     res.cookie("token", token, cookieOptions);
     return res.status(201).json({ user: createdUser });
@@ -51,7 +60,15 @@ export const registerUser = asyncHandler(async (req, res) => {
 //register new channel, Ensure this is not already exist in database and also automatic login
 export const registerChannel = async (req, res) => {
     const { name, username, email, password, about, headline } = req.body;
-    console.log(name, username, email, password, about, headline)
+    console.log(name, username, email, password, about, headline);
+    //validate channel data
+    if ([name, email, username, password, about, headline].some(field => field === "")) {
+        throw new CustomError(400, "All fields are required");
+    }
+    //validate profile Image and cover Image
+    if (!req.files.profileImage[0].path || !req.files.coverImage[0].path) {
+        throw new CustomError(409, "please upload Images ");
+    }
     //check If user email is already exist in database
     const isExist = await findUserByEmail(email);
     if (isExist) {
@@ -74,6 +91,7 @@ export const registerChannel = async (req, res) => {
         profileImage: profileImage.secure_url,
         coverImage: coverImage.secure_url
     });
+    //send notify email to this user for informed account creation
     await notifyEmail({
         sendTo: "atifahmad2219@gmail.com",
         subject: `your channel creation request has pending please wait for admin response...`,
@@ -81,7 +99,7 @@ export const registerChannel = async (req, res) => {
             "Thanks for give us request for news channel creation so your request has pending please wait for admin response...",
         username
     });
-    //send notify email to this user for informed account creation
+    //Generate Jwt token and assign to user in cookie
     const token = userTokenGenerator({ _id: createdChannel._id });
     res.cookie("token", token, cookieOptions);
     return res.status(201).json({ user: createdChannel });
@@ -89,12 +107,16 @@ export const registerChannel = async (req, res) => {
 //controller for login, Get email and password from request body and find it
 export const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password)
-    const user = await findUserByEmailAndPassword(email, password);
+    //validate user data
+    if ([email,password].some(field => field === "")) {
+        throw new CustomError(400, "All fields are required");
+    }
     //If user not found, Invalid email or password
+    const user = await findUserByEmailAndPassword(email, password);
     if (!user) {
         throw new CustomError(400, "Invalid username or password");
     }
+    //Generate Jwt token and assign to user in cookie
     const token = userTokenGenerator({ _id: user._id });
     res.cookie("token", token, cookieOptions);
     res.status(200).json({ user });
@@ -111,7 +133,7 @@ export const refresh = asyncHandler(async (req, res) => {
     if (!verifiedUser) {
         throw new CustomError(401, "your are not authenticated ");
     }
-    //assigned new token to user
+    //assigned new token to user in cookie
     const newToken = userTokenGenerator({ _id: verifiedUser._id });
     res.cookie("token", newToken, cookieOptions);
     const user = await findUserById(verifiedUser._id);
@@ -133,6 +155,3 @@ export const logout = asyncHandler((req, res) => {
     res.clearCookie("token");
     res.status(200).json({ message: "your successfully logout !" });
 });
-
-
-

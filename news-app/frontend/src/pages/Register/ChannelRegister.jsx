@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import FormInput from "../../components/UI/FormInput";
-import {  useNavigate } from "react-router-dom";
-import TextArea from "../../components/UI/TextArea";
 import { useForm } from "react-hook-form";
 import { FORM_VALIDATIONS } from "../../config/validation";
 import { useDispatch } from "react-redux";
+import Bounce from 'react-reveal/Bounce';
+
 import { registerUser } from "../../api/auth";
 import { login } from "../../store/slices/auth.slice.js";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks";
 import Button from "../../components/UI/Button";
 const RegisterChannel = () => {
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const {
     register,
@@ -48,12 +48,14 @@ const submitHandler = async (data, event) => {
   }
   setSubmitStatus({ loading: false, error: false });
   dispatch(login({ ...response?.data?.user }));
-  navigate("/articles");
   setSubmitStatus({ loading: false, error: true });
 };
 
   return (
     <React.Fragment>
+       <Bounce left>
+
+
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -114,15 +116,19 @@ const submitHandler = async (data, event) => {
               {...register("coverImage")}
               className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
             />
-            <TextArea
-              {...register("headline")}
-              label="Headline "
-              placeholder="Type Headline of your News Channel "
-            />
-            <TextArea
+              <FormInput
+                label={"Your Headline "}
+                placeholder={""}
+                type={"text"}
+                {...register("headline")}
+                error={errors.headline}
+              />
+            <FormInput
+              label={"Your About "}
+              placeholder={""}
+              type={"text"}
               {...register("about")}
-              label="About"
-              placeholder="Type About of your News Channel "
+              error={errors.about}
             />
             {submitStatus.error && (
               <p className="text-red-600 text-[14px]">
@@ -142,13 +148,14 @@ const submitHandler = async (data, event) => {
           </form>
           <div className="w-full flex flex-col items-start">
             <AuthRelatedLinks
-              text={"already have an account !"}
+              text={"already have an account or channel !"}
               linkLabel={"Login Up here !"}
               path={"/auth/login"}
             />
           </div>
         </div>
       </div>
+      </Bounce>
     </React.Fragment>
   );
 };

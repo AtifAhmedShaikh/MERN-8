@@ -2,13 +2,17 @@ import UserModel from "../models/User.model.js";
 import { findUserById } from "./user.service.js";
 
 export const findChannels = async () => {
-    const channels = await UserModel.find({ role: "NEWS_CHANNEL" });
+    const channels = await UserModel.find({
+        role: "NEWS_CHANNEL",
+        channelApprovalStatus: "ACCEPTED"
+    });
     return channels;
 };
 
 export const findChannelById = async channelId => {
     const channel = await UserModel.findOne({
         role: "NEWS_CHANNEL",
+        channelApprovalStatus: "ACCEPTED",
         _id: channelId
     });
     return channel;
@@ -58,4 +62,8 @@ export const rejectChannelRequestByAdmin = async channelId => {
     return await UserModel.findByIdAndUpdate(channelId, {
         channelApprovalStatus: "REJECTED"
     });
+};
+
+export const findChannelRequestsForAdmin = async () => {
+    return await UserModel.find({ role: "NEWS_CHANNEL" });
 };

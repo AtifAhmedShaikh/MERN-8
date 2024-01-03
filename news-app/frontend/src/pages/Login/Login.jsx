@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Fade from 'react-reveal/Fade';
 import FormInput from "../../components/UI/FormInput.jsx";
 import Button from "../../components/UI/Button.jsx";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks.jsx";
@@ -41,7 +42,7 @@ const Login = () => {
     Swal.fire({
       position: "top-center",
       icon: "success",
-      title: "You success work has been saved",
+      title: response?.data?.message,
       showConfirmButton: false,
       timer: 1500
     });
@@ -52,6 +53,9 @@ const Login = () => {
 
   return (
     <React.Fragment>
+      <Fade left>
+
+
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -111,6 +115,7 @@ const Login = () => {
         <Button variant={"success"} className="px-2  py-2 w-fit " onClick={loginWithGoogle}>Login with Google </Button>
         </div>
       </div>
+      </Fade>
     </React.Fragment>
   );
 };

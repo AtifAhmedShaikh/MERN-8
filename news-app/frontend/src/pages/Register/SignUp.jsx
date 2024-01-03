@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Bounce from 'react-reveal/Bounce';
 import FormInput from "../../components/UI/FormInput";
 import Button from "../../components/UI/Button";
 import { login } from "../../store/slices/auth.slice";
@@ -52,6 +53,9 @@ const submitHandler = async (data, event) => {
 
   return (
     <React.Fragment>
+       <Bounce left>
+
+
       <div className="flex min-h-full flex-col justify-center px-6 py-3 lg:px-2">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -126,12 +130,13 @@ const submitHandler = async (data, event) => {
             </div>
           </form>
           <AuthRelatedLinks
-            text={"already hav an account !"}
+            text={"already have an account !"}
             linkLabel={"Login here !"}
             path={"/auth/login"}
           />
         </div>
       </div>
+      </Bounce>
     </React.Fragment>
   );
 };

@@ -3,6 +3,7 @@ import { findChannelArticles } from "../services/article.service.js";
 import {
     acceptChannelRequestByAdmin,
     findChannelById,
+    findChannelRequestsForAdmin,
     findChannels,
     followingTheChannelByUser,
     isChannelFollowedByUser,
@@ -52,7 +53,7 @@ export const followToChannel = asyncHandler(async (req, res, next) => {
 export const acceptChannelRequest = asyncHandler(async (req, res) => {
     const channelId = req.params.id;
     const approval = await acceptChannelRequestByAdmin(channelId);
-    const channel=await findChannelById(channelId);
+    const channel = await findChannelById(channelId);
     await notifyEmail({
         sendTo: "atifahmad2219@gmail.com",
         subject: `Congratulations your request has been approved by App admin...`,
@@ -72,7 +73,12 @@ export const rejectChannelRequest = asyncHandler(async (req, res) => {
         subject: `we are sorry! your request has been rejected by App admin...`,
         description:
             "your gave a request for channel creation so we are sorry because your request has been rejected by admin,please try another platform !",
-        username: channel.username
+        username: channel?.username
     });
     res.status(202).json({ message: "you reject this channel " });
+});
+
+export const allRequest = asyncHandler(async (req, res) => {
+    const requests = await findChannelRequestsForAdmin();
+    res.status(200).json({ channels: requests });
 });

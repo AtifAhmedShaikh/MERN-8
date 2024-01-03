@@ -15,6 +15,7 @@ import {
     addComment
 } from "../controllers/articles.controller.js";
 import multer from "multer";
+import { isChannelApprovedByAdmin } from "../middlewares/adminApproval.middleware.js";
 
 const router = express.Router();
 
@@ -40,17 +41,30 @@ router
     .post(
         isAuthenticated,
         isNewsChannel,
+        isChannelApprovedByAdmin,
         upload.single("photo"),
         addNewArticle
     );
 
 //Update article by ID
-router.route("/update/:id").put(isAuthenticated, isNewsChannel, updateArticle);
+router
+    .route("/update/:id")
+    .put(
+        isAuthenticated,
+        isNewsChannel,
+        isChannelApprovedByAdmin,
+        updateArticle
+    );
 
 //Delete article by ID
 router
     .route("/delete/:id")
-    .delete(isAuthenticated, isNewsChannel, deleteArticle);
+    .delete(
+        isAuthenticated,
+        isNewsChannel,
+        isChannelApprovedByAdmin,
+        deleteArticle
+    );
 
 //Like article by ID
 router.route("/like/:id").patch(isAuthenticated, likeArticleById);

@@ -16,18 +16,21 @@ const CreateArticle = () => {
     formState: { errors },
   } = useForm();
   // handle submit to call api for create new article by current channel
-  const submitHandler = async (data,event) => {
+  const submitHandler = async (data, event) => {
     event.preventDefault();
     setIsUploading(true);
     const formData = new FormData();
-    formData.append("title",data.title);
-    formData.append("content",data.content);
-    formData.append("description",data.description);
-    formData.append("photo",data.photo[0]);
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+    formData.append("description", data.description);
+    formData.append("photo", data.photo[0]);
     const response = await createArticleByChannel(formData);
-    if (!response) return;
+    if (!response) {
+      setIsUploading(false);
+      return;
+    }
     toast.success(response?.data?.message);
-    setIsUploading(false)
+    setIsUploading(false);
   };
 
   return (
@@ -68,7 +71,7 @@ const CreateArticle = () => {
             type="file"
             label="Upload Image of article"
             className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
-            {...register("photo")}
+            {...register("photo", { required: true })}
           />
           <Button
             type="submit"

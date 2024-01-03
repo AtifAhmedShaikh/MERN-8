@@ -28,7 +28,7 @@ const CommentsContainer = () => {
   return (
     <Container
       className={
-        "w-[45%] bg-gray-100 rounded-lg ml-5 py-5 mb-[6rem] relative overflow-scroll overflow-x-hidden"
+        "w-[45%] bg-slate-100 rounded-lg ml-5 py-5 mb-[6rem] relative overflow-scroll overflow-x-hidden shadow-lg"
       }
     >
       <div className="flex justify-start mb-5 ">

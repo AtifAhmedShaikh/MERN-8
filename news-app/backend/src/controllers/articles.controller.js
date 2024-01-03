@@ -11,6 +11,7 @@ import {
     addCommentOnArticle
 } from "../services/article.service.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import CustomError from "../error/CustomError.js";
 
 export const allArticles = asyncHandler(async (req, res) => {
     const articles = await findArticles();
@@ -26,7 +27,13 @@ export const articleById = asyncHandler(async (req, res) => {
 //store new article in DB from writeArticle function,Integrate channel as a author
 export const addNewArticle = asyncHandler(async (req, res) => {
     const { title, content, description } = req.body;
-    console.log(title, content, description);
+    //validate article data
+    if ([title, content, description].some(field => field?.trim() === "")) {
+        throw new CustomError(400, "All fields are required");
+    }
+    if (!req.file.path) {
+        throw new CustomError(400, "please upload article Image ");
+    }
     const profileImage = await uploadOnCloudinary(req.file.path);
     const authorId = req.author._id;
     const createdArticle = await createArticle({
