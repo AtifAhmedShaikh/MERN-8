@@ -15,6 +15,7 @@ import {
 //register new user, Ensure this is not already exist in database and also automatic login
 export const registerUser = asyncHandler(async (req, res) => {
     const { name, username, email, password } = req.body;
+    console.log(name, username, email, password)
     //validate user data
     if ([name, email, username, password].some(field => field=== "")) {
         throw new CustomError(400, "All fields are required");

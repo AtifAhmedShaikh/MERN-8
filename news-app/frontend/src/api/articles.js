@@ -91,3 +91,11 @@ export const addCommentOnArticle = async (articleId, commentText) => {
   });
   return response;
 };
+
+
+export const fetchArticleByQuery=async(query)=>{
+  const response = await asyncHandler(async () => {
+    return await api.get(`/api/v1/articles/all?query=${query}`);
+  });
+  return response;
+}

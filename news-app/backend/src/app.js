@@ -23,7 +23,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/channels", channelRouter);
 app.use("/api/v1/collections", collectionRouter);
-// eslint-disable-next-line no-undef
+
 process.on("unhandledRejection", (reason, promise) => {
     console.log("Unhandled Rejection at:", promise, "reason:", reason);
     // Add your custom error handling logic here, or log the error

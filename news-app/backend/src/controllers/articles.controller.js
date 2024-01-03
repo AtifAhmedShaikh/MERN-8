@@ -8,13 +8,19 @@ import {
     updateArticleById,
     createArticle,
     findArticleCommentsById,
-    addCommentOnArticle
+    addCommentOnArticle,
+    findArticlesByQuery
 } from "../services/article.service.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import CustomError from "../error/CustomError.js";
 
 export const allArticles = asyncHandler(async (req, res) => {
     const articles = await findArticles();
+    if(req.query.query){
+        console.log(req.query)
+        const queryArticles=await findArticlesByQuery(req.query.query);
+       return res.status(200).json({ articles:queryArticles });eapi
+    }
     res.status(200).json({ articles });
 });
 

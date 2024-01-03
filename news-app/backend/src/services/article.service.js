@@ -1,3 +1,4 @@
+import { Query } from "mongoose";
 import ArticleModel from "../models/Article.model.js";
 import CommentModel from "../models/Comment.model.js";
 
@@ -8,6 +9,20 @@ export const findArticles = async () => {
 export const findArticleById = async id => {
     return await ArticleModel.findById(id).populate("author");
 };
+
+export const findArticlesByQuery=async(query)=>{
+    const regex = new RegExp(query, 'i');
+    const articles = await ArticleModel.find({
+        $or: [
+          { title: { $regex: regex } },
+          { content: { $regex: regex } },
+          { description: { $regex: regex } },
+          // Add more fields as needed
+        ],
+      });
+  
+      return articles;
+}
 
 export const createArticle = async data => {
     const newArr = new ArticleModel({ ...data });

@@ -105,11 +105,13 @@ const submitHandler = async (data, event) => {
             />
             <input
               type="file"
+              required
               {...register("profileImage")}
               className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
             />
             <input
               type="file"
+              required
               {...register("coverImage")}
               className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
             />
