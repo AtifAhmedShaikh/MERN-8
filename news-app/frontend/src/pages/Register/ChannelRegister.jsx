@@ -9,8 +9,10 @@ import { registerUser } from "../../api/auth";
 import { login } from "../../store/slices/auth.slice.js";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks";
 import Button from "../../components/UI/Button";
+import { useNavigate } from "react-router-dom";
 const RegisterChannel = () => {
-
+  const [files,setFiles]=useState({profileImage:null,coverImage:null});
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   const {
     register,
@@ -37,8 +39,8 @@ const submitHandler = async (data, event) => {
   formData.append("about",data.about);
   formData.append("headline",data.headline);
 
-  formData.append("profileImage", data.profileImage[0]);
-  formData.append("coverImage", data.coverImage[0]);
+  formData.append("profileImage", files.profileImage);
+  formData.append("coverImage", files.coverImage);
   setSubmitStatus({ loading: true, error: false });
   // Call the registerUser API with the FormData 
   const response = await registerUser(formData)
@@ -48,7 +50,7 @@ const submitHandler = async (data, event) => {
   }
   setSubmitStatus({ loading: false, error: false });
   dispatch(login({ ...response?.data?.user }));
-  setSubmitStatus({ loading: false, error: true });
+  navigate("/articles");
 };
 
   return (
@@ -60,8 +62,8 @@ const submitHandler = async (data, event) => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
+            src="https://img.freepik.com/free-vector/colorful-letter-gradient-logo-design_474888-2309.jpg?size=626&ext=jpg&ga=GA1.1.330823008.1703701840&semt=ais"
+            alt="my Company"
           />
           <h2 className="my-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Join Us to Create your Channel
@@ -106,16 +108,41 @@ const submitHandler = async (data, event) => {
               {...register("password", FORM_VALIDATIONS.password)}
               error={errors.password}
             />
-            <input
-              type="file"
-              {...register("profileImage")}
-              className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
-            />
-            <input
-              type="file"
-              {...register("coverImage")}
-              className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
-            />
+              <div className="flex">
+                <input
+                  type="file"
+                  required
+                  onChange={(e) =>
+                    setFiles({ ...files, profileImage: e.target.files[0] })
+                  }
+                  className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
+                />
+                {files.profileImage && (
+                  <img
+                    src={URL.createObjectURL(files?.profileImage)}
+                    className="w-10 h-10 rounded-full"
+                    alt=""
+                  />
+                )}
+              </div>
+              <div className="flex">
+                <input
+                  type="file"
+                  required
+                  onChange={(e) =>
+                    setFiles({ ...files, coverImage: e.target.files[0] })
+                  }
+                  className="file:border-0 file:bg-gray-200 file:text-[12px] file:px-2 file:py-2 file:rounded-lg file:sh"
+                />
+                {files.coverImage && (
+                  <img
+                    src={URL.createObjectURL(files?.coverImage)}
+                    className="w-10 h-10 rounded-full"
+                    alt=""
+                  />
+                )}
+              </div>
+
               <FormInput
                 label={"Your Headline "}
                 placeholder={""}

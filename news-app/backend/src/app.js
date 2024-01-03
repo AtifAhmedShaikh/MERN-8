@@ -24,13 +24,13 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/channels", channelRouter);
 app.use("/api/v1/collections", collectionRouter);
 
-process.on("unhandledRejection", (reason, promise) => {
-    console.log("Unhandled Rejection at:", promise, "reason:", reason);
-    // Add your custom error handling logic here, or log the error
-    // You might want to terminate the process in a production environment
-});
-
 //Handle Errors Globally !
 app.use(handleError);
+// eslint-disable-next-line no-undef
+process.on("unhandledRejection", (reason, promise) => {
+    console.log("Unhandled Rejection at:", promise, reason);
+
+});
+
 
 export default app;

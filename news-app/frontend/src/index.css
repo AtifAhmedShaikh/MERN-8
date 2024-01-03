@@ -19,13 +19,13 @@ body {
   height: 0px;
 }
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
   height: 3px;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 2px;
   width: 2px;
-  background-color: rgb(187, 187, 187);
+  background-color: rgb(187, 87, 87);
 }
 
 

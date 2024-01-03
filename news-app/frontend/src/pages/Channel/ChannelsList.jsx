@@ -22,7 +22,7 @@ const ChannelsList = () => {
     <React.Fragment>
       <BackBar pageLabel={"Channels"} />
       {loading && <Loader />}
-      <Container className="w-full flex flex-wrap px-0 py-2 gap-3 justify-start items-center">
+      <Container className="w-full flex flex-wrap px-0 py-2 gap-3 justify-between items-center">
         {channels.map((channel) => {
           return <Card key={channel._id} {...channel} />;
         })}

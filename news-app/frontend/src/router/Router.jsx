@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Home, Notifications, Login, SignUp } from "../z-point/Point.jsx";
 import { Settings, ArticlesList } from "../z-point/Point.jsx";
-import { CompleteArticle, Collection } from "../z-point/Point.jsx";
+import { ArticleDetailsPage, Collection } from "../z-point/Point.jsx";
 import { ChannelProfile, ChannelsList } from "../z-point/Point.jsx";
 import ProtectedByUser from "./Protected/ProtectedByUser.jsx";
 import ProtectedByChannel from "./Protected/ProtectedByChannel.jsx";
@@ -11,8 +11,10 @@ import NotFoundPage from "../pages/Error/NotFoundPage.jsx";
 import DashBoard from "../pages/Admin/DashBoard.jsx";
 import ProtectedByAdmin from "./Protected/ProtectedByAdmin.jsx";
 import RegisterChannel from "../pages/Register/ChannelRegister.jsx";
+import useAutoLogin from "../hooks/useAutoLogin.js";
 //import all pages form central point of pages
 const Router = () => {
+  useAutoLogin();
   return (
     <Routes>
       {/* common routes of App available of all */}
@@ -20,14 +22,13 @@ const Router = () => {
       <Route exact path="/auth/login" element={<Login />} />
       <Route exact path="/auth/signUp" element={<SignUp />} />
       <Route exact path="/auth/channelRegister" element={<RegisterChannel />} />
-      <Route path="*" element={<NotFoundPage />} />
       {/* protected routes by user */}
       <Route element={<ProtectedByUser />}>
         <Route exact path="/articles" element={<ArticlesList />} />
         <Route exact path="/notifications" element={<Notifications />} />
         <Route exact path="/channels" element={<ChannelsList />} />
         <Route exact path="/channels/:id" element={<ChannelProfile />} />
-        <Route exact path="/articles/:id" element={<CompleteArticle />} />
+        <Route exact path="/articles/:id" element={<ArticleDetailsPage />} />
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/saved" element={<Collection />} />
         <Route path="*" element={<NotFoundPage />} />

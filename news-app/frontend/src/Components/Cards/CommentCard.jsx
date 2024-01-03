@@ -6,25 +6,30 @@ const CommentCard = ({
   userId: { profileImage, name },
 }) => {
   return (
-    <div className="w-100 h-20 px-2 py-2 overflow-y-hidden border-b pb-3">
-      <div className="flex gap-2 items-center justify-between">
-        <div className="flex gap-2 items-center">
+    <div className="w-full h-20 px-4 py-2 border-b pb-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <img
             src={profileImage}
-            className="w-[30px] h-[30px] rounded-[50%]"
-            alt="loading"
+            className="w-8 h-8 rounded-full mr-2"
+            alt={`${name}'s profile`}
           />
-          <span>{name}</span>
+          <span className="font-semibold">{name}</span>
         </div>
-        <span className="text-[11px]">{timeAgo(createdAt)}</span>
+        <span className="text-xs text-gray-600">{timeAgo(createdAt)}</span>
       </div>
-      <p className="mt-1 text-[14px]">{commentText}</p>
+      <p className="mt-1 text-sm">{commentText}</p>
     </div>
   );
 };
+
 CommentCard.propTypes = {
   commentText: PropTypes.string,
   createdAt: PropTypes.string,
-  userId: PropTypes.object,
+  userId: PropTypes.shape({
+    profileImage: PropTypes.string,
+    name: PropTypes.string,
+  }),
 };
+
 export default CommentCard;

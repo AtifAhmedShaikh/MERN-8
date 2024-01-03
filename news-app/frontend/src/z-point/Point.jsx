@@ -1,7 +1,7 @@
 import Home from "../pages/Home/Home";
 import Notifications from "../pages/Notification/Notifications";
 import ArticlesList from "../pages/Article/ArticlesList";
-import CompleteArticle from "../pages/Article/CompleteArticle";
+import ArticleDetailsPage from "../pages/Article/ArticleDetailsPage";
 import Collection from "../pages/Collection/Collection";
 import ChannelsList from "../pages/Channel/ChannelsList";
 import ChannelProfile from "../pages/Channel/ChannelProfile";
@@ -18,6 +18,6 @@ export {
   Notifications,
   Collection,
   Settings,
-  CompleteArticle,
+  ArticleDetailsPage,
   ArticlesList,
 };
