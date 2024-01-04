@@ -36,7 +36,7 @@ const ChannelCard = ({
       >
         <div className="relative h-48">
           <img
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center rounded-lg"
             src={coverImage}
             alt={`${username}'s cover`}
           />

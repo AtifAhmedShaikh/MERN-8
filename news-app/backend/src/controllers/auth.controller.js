@@ -109,7 +109,7 @@ export const registerChannel = async (req, res) => {
 export const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     //validate user data
-    if ([email,password].some(field => field === "")) {
+    if (!email || !password) {
         throw new CustomError(400, "All fields are required");
     }
     //If user not found, Invalid email or password

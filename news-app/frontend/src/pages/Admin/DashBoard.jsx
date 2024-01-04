@@ -62,7 +62,9 @@ const DashBoard = () => {
                           </tr>
                         </thead>
                         <tbody>
+                          <div className="flex justify-center">
                           {loading&&<Loader/>}
+                          </div>
                           {requestList.map((request) => {
                             return (
                               <RequestCard setUpdate={setUpdate} key={request._id} {...request} />

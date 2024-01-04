@@ -26,7 +26,7 @@ export const channelById = asyncHandler(async (req, res, next) => {
 export const channelProfileById = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const channel = await findChannelById(id);
-    const articles = await findChannelArticles();
+    const articles = await findChannelArticles(id);
     res.status(200).json({ profile: { channel, articles } });
 });
 

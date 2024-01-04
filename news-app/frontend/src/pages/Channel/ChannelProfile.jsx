@@ -57,7 +57,9 @@ const ChannelProfile = () => {
                     <span className="text-[9px]">Followers</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <span className="text-[13px] font-bold">5660</span>
+                    <span className="text-[13px] font-bold">
+                      {articles.length}
+                    </span>
                     <span className="text-[9px]">Articles</span>
                   </div>
                 </div>
@@ -78,9 +80,9 @@ const ChannelProfile = () => {
           </div>
           <div className="mt-5 px-3">
             <h3 className="font-bold text-lg mb-5">Articles</h3>
-            {!loading&&articles.length===0&&<p>not have articles yet!</p>}
+            {!loading && articles.length === 0 && <p>not have articles yet!</p>}
             {articles?.map((article) => {
-              return <ArticleCard key={article._id} />;
+              return <ArticleCard key={article._id} {...article} author={channelInfo} />;
             })}
           </div>
         </div>

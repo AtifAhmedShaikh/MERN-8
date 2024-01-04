@@ -62,8 +62,8 @@ export const ARTICLE_VALIDATION = {
       message: "title must be at least 10 characters",
     },
     maxLength: {
-      value: 40,
-      message: "title at least 50 characters",
+      value: 100,
+      message: "title at least 100 characters",
     },
   },
   content: {

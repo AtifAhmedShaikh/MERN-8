@@ -1,5 +1,5 @@
 import React from "react";
-import { IoMdHome, IoIosSettings, IoMdNotifications } from "react-icons/io";
+import { IoMdHome, IoIosSettings } from "react-icons/io";
 import { FaRegBookmark, FaNewspaper, FaUsers } from "react-icons/fa6";
 import { GrUserAdmin } from "react-icons/gr";
 import { NavLink } from "react-router-dom";
@@ -10,11 +10,6 @@ const BottomBar = () => {
     const baseIcons = [
       { path: "/", label: "Home", element: <IoMdHome /> },
       { path: "/articles", label: "Articles", element: <FaNewspaper /> },
-      {
-        path: "/notifications",
-        label: "Notifications",
-        element: <IoMdNotifications />,
-      },
       { path: "/channels", label: "Channels", element: <FaUsers /> },
       { path: "/saved", label: "Collections", element: <FaRegBookmark /> },
       { path: "/settings", label: "Settings", element: <IoIosSettings /> },
