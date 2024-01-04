@@ -20,12 +20,15 @@ const Navbar = () => {
   return (
     <React.Fragment>
       <div className="w-full bg-gray-800 h-12 shadow-md flex justify-between px-4 items-center">
-        <div>
+        <div className="flex items-center">
           <img
             className="h-[100%] w-[50px]"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt=""
           />
+          <h5 className="text-white">
+          ArticleHub
+          </h5>
         </div>
         <div className="flex gap-3">
           {!authStatus ? (

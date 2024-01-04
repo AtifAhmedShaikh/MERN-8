@@ -7,11 +7,11 @@ const ArticleHeader = ({ title, urlToImage, author, createdAt }) => {
   return (
     <React.Fragment>
       <RubberBand>
-        <h2 className="text-2xl font-bold">{title}</h2>
+        <h2 className="text-2xl font-bold border px-5 py-5 rounded-md">{title}</h2>
       </RubberBand>
       <Swing>
         <img
-          className="w-full h-[50vh] lg:h-[65vh] rounded-lg mt-4"
+          className="w-full h-[50vh] lg:h-[65vh] border px-5 py-5 rounded-lg mt-4"
           src={urlToImage}
           alt=""
         />

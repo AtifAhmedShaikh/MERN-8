@@ -1,6 +1,20 @@
 import api from "../config/apiConfig";
 import { asyncHandler } from "../utils/asyncHandler";
-
+// "@reduxjs/toolkit": "^2.0.1",
+// "axios": "^1.6.2",
+// "firebase": "^10.7.1",
+// "framer-motion": "^10.17.4",
+// "react": "^18.2.0",
+// "react-dom": "^18.2.0",
+// "react-helmet": "^6.1.0",
+// "react-hook-form": "^7.49.2",
+// "react-icons": "^4.12.0",
+// "react-redux": "^9.0.2",
+// "react-reveal": "^1.2.2",
+// "react-router-dom": "^6.20.1",
+// "react-share": "^5.0.3",
+// "react-toastify": "^9.1.3",
+// "sweetalert2": "^11.10.2"
 export const fetchArticles = async () => {
   const response = await asyncHandler(async () => {
     return await api.get("/api/v1/articles/all");

@@ -65,7 +65,7 @@ const Articles = () => {
           Oldest News
         </Button>
       </div>
-      <Container className="flex justify-center items-start md:flex-wrap gap-5">
+      <Container className="flex justify-center items-start md:flex-wrap sm:flex-wrap flex-wrap gap-5">
         {loading && <Loader />}
         {!loading && searchQuery && filteredArticles.length === 0 && (
           <p>articles not found from ` {searchQuery} `</p>

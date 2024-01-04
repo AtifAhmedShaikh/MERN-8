@@ -14,7 +14,7 @@ import RegisterChannel from "../pages/Register/ChannelRegister.jsx";
 import useAutoLogin from "../hooks/useAutoLogin.js";
 //import all pages form central point of pages
 const Router = () => {
-  useAutoLogin();
+  // useAutoLogin();
   return (
     <Routes>
       {/* common routes of App available of all */}

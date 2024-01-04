@@ -8,8 +8,10 @@ import { createArticleByChannel } from "../../api/articles";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { ARTICLE_VALIDATION } from "../../config/validation";
+import { useSelector } from "react-redux";
 const CreateArticle = () => {
   const [isUploading,setIsUploading]=useState(false);
+  const adminApproval=useSelector((state)=>state.auth.user.channelApprovalStatus);
   const {
     register,
     handleSubmit,
@@ -40,6 +42,10 @@ const CreateArticle = () => {
         <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold">
           Create a new Article for users of App
         </h3>
+        <div className="text-center mt-5">
+    {adminApproval==="REJECTED"&&<p className="text-[14px] text-red-700">your channel has rejected by admi, you not be able to write article</p>}
+    {adminApproval==="PENDING"&&<p className="text-[14px] text-red-700"> your channel request has pending,please wait for admin approval, you not be able to write article</p>}
+        </div>
         <form
           className="flex flex-col w-full max-w-[55%]"
           method="post"

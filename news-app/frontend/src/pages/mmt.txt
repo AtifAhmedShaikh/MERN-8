@@ -71,3 +71,31 @@ const DashBoard = () => {
 };
 
 export default DashBoard;
+
+
+
+
+  <div className="flex justify-start mb-5">
+        <h3 className="ml-4 text-xl font-bold">Comments on Article</h3>
+      </div>
+      <div className="flex flex-col w-full">
+        {comments.map((comment) => (
+          <CommentCard key={comment?._id} {...comment} />
+        ))}
+      </div>
+      <form
+        onSubmit={submitHandler}
+        className="absolute bottom-0 w-full h-14 bg-gray-800 flex items-center justify-center gap-3"
+      >
+        <input
+          type="text"
+          placeholder="Type your comment..."
+          className="w-[80%] px-2 rounded-md h-[30px] text-[14px] focus:outline-none"
+          onChange={(e) => setCurrentCommentText(e.target.value)}
+          value={currentCommentText}
+          required
+        />
+        <button type="submit" className="hover:scale-110">
+          <IoMdSend color="white" className="text-xl" />
+        </button>
+      </form>

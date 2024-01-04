@@ -31,7 +31,7 @@ const ChannelCard = ({
   return (
     <Flip bottom cascade>
       <div
-        className="w-[25rem] bg-white rounded-md overflow-hidden shadow-lg py-3"
+        className="w-[25rem] bg-white rounded-md overflow-hidden px-5 shadow-lg py-3"
         onClick={() => navigate(`/channels/${_id}`)}
       >
         <div className="relative h-48">
