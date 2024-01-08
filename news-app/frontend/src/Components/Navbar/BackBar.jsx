@@ -30,8 +30,8 @@ const BackBar = ({ pageLabel }) => {
       </div>
       <Button
         type="button"
-        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-[4px] text-sm px-2 py-1  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        variant={"primary"}
+        className="px-2 py-2"
+        variant={"danger"}
         isLoading={false}
         onClick={handleLogout}
       >

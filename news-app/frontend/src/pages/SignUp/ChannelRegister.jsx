@@ -3,7 +3,6 @@ import FormInput from "../../components/UI/FormInput";
 import { useForm } from "react-hook-form";
 import { FORM_VALIDATIONS } from "../../config/validation";
 import { useDispatch } from "react-redux";
-import Bounce from 'react-reveal/Bounce';
 
 import { registerUser } from "../../api/auth";
 import { login } from "../../store/slices/auth.slice.js";
@@ -55,7 +54,6 @@ const submitHandler = async (data, event) => {
 
   return (
     <React.Fragment>
-       <Bounce left>
 
 
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -182,7 +180,6 @@ const submitHandler = async (data, event) => {
           </div>
         </div>
       </div>
-      </Bounce>
     </React.Fragment>
   );
 };

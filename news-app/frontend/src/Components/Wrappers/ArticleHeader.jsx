@@ -1,21 +1,17 @@
 import React from "react";
 import { timeAgo } from "../../utils/timeStamp";
-import RubberBand from "react-reveal/RubberBand";
-import Swing from "react-reveal/Swing";
 import PropTypes from "prop-types";
 const ArticleHeader = ({ title, urlToImage, author, createdAt }) => {
   return (
     <React.Fragment>
-      <RubberBand>
-        <h2 className="text-2xl font-bold border px-5 py-5 rounded-md">{title}</h2>
-      </RubberBand>
-      <Swing>
-        <img
-          className="w-full h-[50vh] lg:h-[65vh] border px-5 py-5 rounded-lg mt-4"
-          src={urlToImage}
-          alt=""
-        />
-      </Swing>
+      <h2 className="text-2xl font-bold border px-5 py-5 rounded-2xl ">
+        {title}
+      </h2>
+      <img
+        className="w-full h-[50vh] lg:h-[65vh] border hover:shadow-2xl hover:scale-x-110 shadow-lg rounded-lg mt-4"
+        src={urlToImage}
+        alt=""
+      />
       <div className="flex flex-col lg:flex-row items-start justify-between px-5 mt-4">
         <div className="flex items-center mb-2 lg:mb-0">
           <img

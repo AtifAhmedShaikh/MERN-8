@@ -23,6 +23,7 @@ import {
 const ArticleDetailsPage = () => {
   const user = useSelector((state) => state.auth.user);
   const [article, setArticle] = useState({});
+  const [isSavedArticle, setIsSavedArticle] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setLiked] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -61,9 +62,14 @@ const ArticleDetailsPage = () => {
     setLikeCount((prev) => prev - 1);
     await disLikeArticleById(id);
   };
-
+  //handle save article, If response is not successful mean this article has already in collection
   const handleSave = async () => {
-    await addToCollection(id);
+    const response=await addToCollection(id);
+    if(!response){
+      setIsSavedArticle(false);
+    }else{
+      setIsSavedArticle(true);
+    }
   };
 
   const handleDelete = async () => {
@@ -96,6 +102,7 @@ const ArticleDetailsPage = () => {
           handleDisLike={handleDisLike}
         />
         <ArticleButtons
+          isSavedArticle={isSavedArticle}
           handleSave={handleSave}
           isCurrentChannelArticle={article.isCurrentChannelArticle}
           handleDelete={handleDelete}

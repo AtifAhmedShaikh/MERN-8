@@ -14,8 +14,8 @@ const Navbar = () => {
     const response = await logoutUser();
     if (!response) return;
     dispatch(logout());
-    navigate("/");
     toast(response?.data?.message);
+    navigate("/");
   };
   return (
     <React.Fragment>
@@ -26,16 +26,14 @@ const Navbar = () => {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt=""
           />
-          <h5 className="text-white">
-          ArticleHub
-          </h5>
+          <h5 className="text-white">ArticleHub</h5>
         </div>
         <div className="flex gap-3">
           {!authStatus ? (
             <div className="flex gap-1">
               <Button
-             className="w-fit px-2 py-2"
-                variant={"success"}
+                className="w-fit px-2 py-2"
+                variant={"primary"}
                 isLoading={false}
                 onClick={() => navigate("/auth/signUp")}
               >
@@ -43,14 +41,14 @@ const Navbar = () => {
               </Button>
               <Button
                 className="w-fit px-2 py-2"
-                variant={"success"}
+                variant={"primary"}
                 isLoading={false}
                 onClick={() => navigate("/auth/login")}
               >
                 Sign In
               </Button>
               <Button
-  className="w-fit px-2 py-2"
+                className="w-fit px-2 py-2"
                 variant={"success"}
                 isLoading={false}
                 onClick={() => navigate("/auth/channelRegister")}

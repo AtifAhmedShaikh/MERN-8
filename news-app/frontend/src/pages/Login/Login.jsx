@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Fade from "react-reveal/Fade";
+import Swal from "sweetalert2";
 import FormInput from "../../components/UI/FormInput.jsx";
 import Button from "../../components/UI/Button.jsx";
 import AuthRelatedLinks from "../../components/Wrappers/AuthRelatedLinks.jsx";
 import { login as loginSlice } from "../../store/slices/auth.slice.js";
 import { loginUser, loginWithGoogle } from "../../api/auth.js";
 import { FORM_VALIDATIONS } from "../../config/validation.js";
-import Swal from "sweetalert2";
 
+import { motion } from "framer-motion"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,18 +20,13 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // form submitting loading, response error, e.g user put Invalid credentials, or others error
+  // form submitting status loading, response error, e.g user put Invalid credentials, or others error
   const [submitStatus, setSubmitStatus] = useState({
     loading: false,
     error: false,
   });
 
-  const borderVariants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.92 } },
-  };
-
-  // login the  user, set userData in store and redirect to articles list page
+  // login the  user, set userData in redux store and redirect to articles list page
   const submitHandler = async (data, event) => {
     event.preventDefault(); //stop page reloading on form submit
     setSubmitStatus({ loading: true, error: false });
@@ -52,11 +47,16 @@ const Login = () => {
     dispatch(loginSlice({ ...response.data.user }));
     navigate("/articles");
   };
-
+  const borderVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.92 } },
+  };
   return (
     <React.Fragment>
-      
-        <Fade left>
+ <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={borderVariants}>
           <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
@@ -122,7 +122,7 @@ const Login = () => {
               </Button>
             </div>
           </div>
-        </Fade>
+          </motion.div>      
     </React.Fragment>
   );
 };

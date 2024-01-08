@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Bounce from "react-reveal/Bounce";
+import { motion } from "framer-motion";
 import FormInput from "../../components/UI/FormInput";
 import Button from "../../components/UI/Button";
 import { login } from "../../store/slices/auth.slice";
@@ -53,7 +53,12 @@ const SignUp = () => {
 
   return (
     <React.Fragment>
-      <Bounce left>
+      <motion.div
+        initial={{ opacity: 0, x: -600, y: 0 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        exit={{ opacity: 0, x: 0, y: -50 }}
+        transition={{ duration: 0.4 }}
+      >
         <div className="flex min-h-full flex-col justify-center px-6 py-3 lg:px-2">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
@@ -158,7 +163,7 @@ const SignUp = () => {
             />
           </div>
         </div>
-      </Bounce>
+      </motion.div>
     </React.Fragment>
   );
 };

@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import Flip from "react-reveal/Flip";
 const ChannelCard = ({
   name,
   username,
@@ -29,44 +28,44 @@ const ChannelCard = ({
     setIsProgress(false);
   };
   return (
-    <Flip bottom cascade>
-      <div
-        className="w-[25rem] bg-white rounded-md overflow-hidden px-5 shadow-lg py-3"
-        onClick={() => navigate(`/channels/${_id}`)}
-      >
-        <div className="relative h-48">
+    <div
+      className="w-[25rem] bg-white rounded-md overflow-hidden px-5 shadow-lg py-3"
+      onClick={() => navigate(`/channels/${_id}`)}
+    >
+      <div className="relative h-48">
+        <img
+          className="w-full h-full object-cover object-center rounded-lg"
+          src={coverImage}
+          alt={`${username}'s cover`}
+        />
+      </div>
+      <div className="relative p-4">
+        <div className="absolute top-0 left-0 mt-2 ml-2">
           <img
-            className="w-full h-full object-cover object-center rounded-lg"
-            src={coverImage}
-            alt={`${username}'s cover`}
+            className="w-12 h-12 rounded-full border-4 border-white"
+            src={profileImage}
+            alt={`${username}'s profile`}
           />
         </div>
-        <div className="relative p-4">
-          <div className="absolute top-0 left-0 mt-2 ml-2">
-            <img
-              className="w-12 h-12 rounded-full border-4 border-white"
-              src={profileImage}
-              alt={`${username}'s profile`}
-            />
-          </div>
-          <div className="mt-16">
-            <h3 className="text-xl font-semibold mb-2">{username}</h3>
-            <p className="text-gray-600 mb-4">{name}</p>
-            <p className="text-sm text-gray-700">{headline}</p>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <Button
-            variant={"primary"}
-            className="w-fit px-2 py-2"
-            isLoading={inProgress}
-            onClick={handleFollowButton}
-          >
-            {hasFollowed ? "Following" : "Follow"}
-          </Button>
+        <div className="mt-16">
+          <h3 className="border rounded-lg px-3 text-cyan-500 text-xl font-semibold mb-2">
+            {username}
+          </h3>
+          <p className="border rounded-lg px-5 text-gray-600 mb-4">{name}</p>
+          <p className="text-sm text-gray-700">{headline}</p>
         </div>
       </div>
-    </Flip>
+      <div className="flex justify-center">
+        <Button
+          variant={"primary"}
+          className="w-fit px-2 py-2"
+          isLoading={inProgress}
+          onClick={handleFollowButton}
+        >
+          {hasFollowed ? "Following" : "Follow"}
+        </Button>
+      </div>
+    </div>
   );
 };
 ChannelCard.propTypes = {
