@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { BUTTON_VARIANTS } from "../../config/variantsOfButton.js";
+import { BUTTON_VARIANTS } from "../../config/variantsOfButton";
 const Button = (
   {
     children,
